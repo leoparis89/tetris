@@ -28,7 +28,7 @@ export const canPlace = (board, piece, x, y) => {
 };
 
 export const removeCompletedLines = (board) => {
-  const result = board.slice();
+  const result = clone2dArray(board);
   const boardHeight = board.length;
   const boardWidth = board[0].length;
 
@@ -56,7 +56,7 @@ export const removeCompletedLines = (board) => {
 
 export const place = (board, piece, x, y) => {
   const pieceWidth = piece.length;
-  const result = board.slice();
+  const result = clone2dArray(board);
 
   for (let i = 0; i < pieceWidth; i++) {
     for (let j = 0; j < pieceWidth; j++) {
@@ -71,10 +71,7 @@ export const place = (board, piece, x, y) => {
 
 export const rotate = (piece, left) => {
   const pieceWidth = piece.length;
-  const result = [];
-  for (let i = 0; i < pieceWidth; i++) {
-    result[i] = piece[i].slice();
-  }
+  const result = clone2dArray(piece);
 
   for (let i = 0; i < pieceWidth; ++i) {
     for (let j = 0; j < pieceWidth; ++j) {
@@ -91,3 +88,10 @@ export const rotate = (piece, left) => {
   return result;
 };
 
+export const clone2dArray = arr => {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result[i] = arr[i].slice();
+  }
+  return result;
+};
