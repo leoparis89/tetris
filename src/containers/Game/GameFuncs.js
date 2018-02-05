@@ -26,3 +26,35 @@ export const canPlace = (board, piece, x, y) => {
 
   return CAN_PLACE;
 };
+
+export const removeCompletedLines = (board) => {
+  const result = board.slice();
+  const boardHeight = board.length;
+  const boardWidth = board[0].length;
+
+  for (let i = 0; i < boardHeight; i++) {
+    result[i] = board[i].slice();
+  }
+
+
+  for (let j = boardHeight - 1; j >= 0; j--) {
+    let fullLine = true;
+    for (let i = 0; i < boardWidth - 1; i++) {
+      if (result[j][i] === 0) {
+        fullLine = false;
+      }
+    }
+
+    if (fullLine) {
+      result.splice(j, 1);
+      const newLine = [];
+      for (let i = 0; i < boardWidth; i++) {
+        newLine.push(0);
+      }
+      result.unshift(newLine);
+      j++;
+    }
+  }
+
+  return result;
+};
