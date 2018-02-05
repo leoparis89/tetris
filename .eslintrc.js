@@ -2,47 +2,49 @@ const OFF = 0;
 const ERROR = 2;
 
 module.exports = {
-  "parser": "babel-eslint",
-  "env": {
-    "browser": true,
-    "node": true,
-    "commonjs": true,
-    "es6": true,
-    "jest": true
+  'parser': 'babel-eslint',
+  'env': {
+    'browser': true,
+    'node': true,
+    'commonjs': true,
+    'es6': true,
+    'jest': true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings"
+  'extends': [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings'
   ],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true,
-      "jsx": true
+  'parserOptions': {
+    'ecmaFeatures': {
+      'experimentalObjectRestSpread': true,
+      'jsx': true
     },
-    "sourceType": "module"
+    'sourceType': 'module'
   },
-  "plugins": [
-    "import", "react"
+  'plugins': [
+    'import', 'react'
   ],
-  "rules": {
-    "indent": [
-      "error",
+  'rules': {
+    'indent': [
+      'error',
       2
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
+    
+    'linebreak-style': [
+      'error',
+      'unix'
     ],
-    "quotes": [
-      "error",
-      "single"
+    'quotes': [
+      'error',
+      'single'
     ],
-    "semi": [
-      "error",
-      "always"
+    'semi': [
+      'error',
+      'always'
     ],
+    'no-debugger': OFF,
     'space-before-blocks': ERROR,
     'space-before-function-paren': OFF,
     'no-multi-spaces': ERROR,
