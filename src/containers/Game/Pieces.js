@@ -13,4 +13,11 @@ pieces.push([
   [0, 0, 0]
 ]);
 
+pieces.push([
+  [1,1],
+  [1,1]
+]);
+
+export const getRandomPiece = () => pieces[Math.floor(Math.random() * pieces.length)];
+
 export default pieces;

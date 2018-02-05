@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Screen from '../../components/Screen/Screen';
 import './Game.scss';
+import pieces, {getRandomPiece} from './Pieces';
+import {addNewPiece} from './GameFuncs';
 
 const getGrid = () => {
   const width = 10;
@@ -20,12 +22,18 @@ const getGrid = () => {
 class Game extends Component {
 
     state = {
-      game: getGrid()
+      board: getGrid()
+    };
+
+    componentDidMount() {
+      let board = addNewPiece(this.state.board);
+      this.setState({board});
     }
 
+
     render() {
-      const {game} = this.state;
-      return (<div className="container"><Screen game={game}/></div>);
+      const {board} = this.state;
+      return (<div className="container"><Screen board={board}/></div>);
     }
 }
 

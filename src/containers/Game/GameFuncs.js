@@ -1,3 +1,5 @@
+import {getRandomPiece} from './Pieces';
+
 const CAN_PLACE = 'CAN_PLACE';
 const BLOCKED = 'BLOCKED';
 const OFFSCREEN = 'OFFSCREEN';
@@ -86,6 +88,14 @@ export const rotate = (piece, left) => {
   }
 
   return result;
+};
+
+export const addNewPiece = (board) => {
+  const result = clone2dArray(board);
+  let piece = getRandomPiece();
+  const horizAxis = Math.floor((result[0].length - piece.length) / 2);
+  return canPlace(result, piece, horizAxis, 0) === 'BLOCKED' ?
+    false : place(result, piece, horizAxis, 0);
 };
 
 export const clone2dArray = arr => {

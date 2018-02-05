@@ -1,9 +1,9 @@
 import React from 'react';
 import './Screen.scss';
 
-const Screen = ({game}) => {
+const Screen = ({board}) => {
   return (<div className="frame">
-    {game.map(el => {
+    {board.map(el => {
       return (<tr>
         {
           el.map(r => (<td><div className={`block block__color--${r}`}></div></td>))
