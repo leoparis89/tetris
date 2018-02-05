@@ -32,11 +32,6 @@ export const removeCompletedLines = (board) => {
   const boardHeight = board.length;
   const boardWidth = board[0].length;
 
-  for (let i = 0; i < boardHeight; i++) {
-    result[i] = board[i].slice();
-  }
-
-
   for (let j = boardHeight - 1; j >= 0; j--) {
     let fullLine = true;
     for (let i = 0; i < boardWidth - 1; i++) {
@@ -53,6 +48,21 @@ export const removeCompletedLines = (board) => {
       }
       result.unshift(newLine);
       j++;
+    }
+  }
+
+  return result;
+};
+
+export const place = (board, piece, x, y) => {
+  const pieceWidth = piece.length;
+  const result = board.slice();
+
+  for (let i = 0; i < pieceWidth; i++) {
+    for (let j = 0; j < pieceWidth; j++) {
+      if (piece[j][i]) {
+        result[y + j][x + i] = piece[j][i];
+      }
     }
   }
 

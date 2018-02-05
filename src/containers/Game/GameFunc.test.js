@@ -1,4 +1,4 @@
-import {canPlace, removeCompletedLines} from './GameFuncs';
+import {canPlace, place, removeCompletedLines} from './GameFuncs';
 
 test('canPlace should return CAN_PLACE if move is possible', () => {
 
@@ -113,4 +113,49 @@ test('removeCompletedLines should clean out completed lines', () => {
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
+});
+
+test('place should return a board with the printed piece', () => {
+  let board = [
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+  ];
+
+  let piece = [
+    [0, 0, 0],
+    [1, 1, 9],
+    [0, 0, 1]
+  ];
+
+  let expected = [
+    [0,0,0,0],
+    [0,1,1,9],
+    [0,0,0,1],
+    [0,0,0,0],
+  ];
+
+  expect(place(board, piece, 1, 0)).toEqual(expected);
+  board = [
+    [0,0,0,0],
+    [0,0,0,4],
+    [0,0,0,0],
+    [0,0,1,2],
+  ];
+
+  piece = [
+    [0, 0, 0],
+    [1, 1, 1],
+    [0, 0, 1]
+  ];
+
+  expected = [
+    [0,0,0,0],
+    [0,0,0,4],
+    [0,1,1,1],
+    [0,0,1,1],
+  ];
+
+  expect(place(board, piece, 1, 1)).toEqual(expected);
 });
