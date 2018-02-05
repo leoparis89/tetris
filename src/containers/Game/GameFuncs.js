@@ -68,3 +68,26 @@ export const place = (board, piece, x, y) => {
 
   return result;
 };
+
+export const rotate = (piece, left) => {
+  const pieceWidth = piece.length;
+  const result = [];
+  for (let i = 0; i < pieceWidth; i++) {
+    result[i] = piece[i].slice();
+  }
+
+  for (let i = 0; i < pieceWidth; ++i) {
+    for (let j = 0; j < pieceWidth; ++j) {
+
+      if (left) {
+        result[pieceWidth - 1 -i][j] = piece[j][i];
+      } else {
+        result[i][pieceWidth - 1 - j] = piece[j][i];
+      }
+
+    }
+  }
+
+  return result;
+};
+

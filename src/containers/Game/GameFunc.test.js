@@ -1,4 +1,4 @@
-import {canPlace, place, removeCompletedLines} from './GameFuncs';
+import {canPlace, place, removeCompletedLines, rotate} from './GameFuncs';
 
 test('canPlace should return CAN_PLACE if move is possible', () => {
 
@@ -158,4 +158,39 @@ test('place should return a board with the printed piece', () => {
   ];
 
   expect(place(board, piece, 1, 1)).toEqual(expected);
+});
+
+test('rotate should rotate the pice corectly', () => {
+
+
+  // x' = y
+  // y' = dim - x
+
+  let piece = [
+    [0, 0, 0],
+    [1, 1, 1],
+    [0, 0, 1]
+  ];
+
+  let expected = [
+    [0, 1, 1],
+    [0, 1, 0],
+    [0, 1, 0]
+  ];
+
+  expect(rotate(piece, true)).toEqual(expected);
+
+  piece = [
+    [0, 0, 0],
+    [1, 1, 1],
+    [0, 0, 1]
+  ];
+
+  expected = [
+    [0, 1, 0],
+    [0, 1, 0],
+    [1, 1, 0]
+  ];
+
+  expect(rotate(piece, false)).toEqual(expected);
 });
