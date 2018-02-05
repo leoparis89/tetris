@@ -1,0 +1,21 @@
+.block {
+  height: 30px;
+  width: 30px;
+
+  &__color--1 {
+    background: coral;
+  }
+  &__color--2 {
+    background: blueviolet;
+  }
+  &__color--3 {
+    background: lightcyan;
+  }
+  &__color--4 {
+    background: sienna;
+  }
+}
+
+.frame {
+  border: darkslateblue solid 3px;
+}

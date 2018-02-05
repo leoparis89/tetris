@@ -1,6 +1,12 @@
+$base-color: lightblue;
+$light-color: lighten($base-color, 20%);
+$dark-color: darken($base-color, 35%);
+
 .container {
   height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient($light-color, $dark-color);
 }

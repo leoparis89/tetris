@@ -1,11 +1,12 @@
 import React from 'react';
+import './Screen.scss';
 
 const Screen = ({game}) => {
-  return (<div>
+  return (<div className="frame">
     {game.map(el => {
       return (<tr>
         {
-          el.map(r => (<td>{r}</td>))
+          el.map(r => (<td><div className={`block block__color--${r}`}></div></td>))
         }
       </tr>);
     })}
