@@ -105,3 +105,18 @@ export const clone2dArray = arr => {
   }
   return result;
 };
+
+export const getGrid = () => {
+  const width = 10;
+  const height = 22;
+  const grid = [];
+
+  for (let i = 0; i < height; i++) {
+    grid[i] = [];
+    for (let j = 0; j < width; j++) {
+      grid[i][j] = 0;
+    }
+  }
+
+  return grid;
+};
