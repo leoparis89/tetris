@@ -30,7 +30,6 @@ class Game extends Component {
         y: 0
       };
       const result = canPlace(board, newPiece, targetPos.x, targetPos.y);
-      console.log('result', result);
       if (result === BLOCKED) {
         this.gameOver();
       } else {
@@ -47,7 +46,7 @@ class Game extends Component {
 
     startNewGame = () => {
       this.resetGame();
-      this.newPiece();
+      this.newPiece(getRandomPiece());
       this.startFlow();
     }
 
