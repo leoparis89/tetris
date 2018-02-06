@@ -7,16 +7,16 @@ import {getGrid} from './GameFuncs';
 
 configure({adapter: new Adapter()});
 
-test('start game should set correct state', () => {
+test('start flow should set correct state', () => {
   const wrapper = shallow(<Game />);
-  wrapper.instance().startGame();
+  wrapper.instance().startFlow();
   const {intervalId} = wrapper.instance().state;
   expect(typeof intervalId).toEqual('number');
 });
 
-test('stop game should set correct state', () => {
+test('stop flow should set correct state', () => {
   const wrapper = shallow(<Game />);
-  wrapper.instance().stopGame();
+  wrapper.instance().stopFlow();
   const {intervalId} = wrapper.instance().state;
   expect(intervalId).toEqual(null);
 });
@@ -45,4 +45,60 @@ test('reset game should set state correctly', () => {
   };
 
   expect(wrapper.instance().state).toEqual(expected);
+});
+
+test('new piece should add piece to currentBoard if possible', () => {
+  const board = [
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,1,0]
+  ];
+
+  const newPiece = [
+    [0,0,1],
+    [0,0,1],
+    [0,1,1]
+  ];
+
+  const expected = [
+    [0,0,0,1,0],
+    [0,0,0,1,0],
+    [0,0,1,1,0],
+    [0,0,0,1,0]
+  ];
+
+
+  const wrapper = shallow(<Game />);
+  wrapper.setState({
+    board
+  });
+
+  wrapper.instance().newPiece(newPiece);
+
+  expect(wrapper.instance().state.currentBoard).toEqual(expected);
+});
+
+test('new piece should call game over is the new piece is blocked', () => {
+  const board = [
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,1,0],
+    [0,0,0,1,0]
+  ];
+
+  const newPiece = [
+    [0,0,1],
+    [0,0,1],
+    [0,1,1]
+  ];
+
+  const wrapper = shallow(<Game />);
+  wrapper.setState({
+    board
+  });
+
+  const spy = jest.spyOn(wrapper.instance(), 'gameOver');
+  wrapper.instance().newPiece(newPiece);
+  expect(spy).toHaveBeenCalled();
 });

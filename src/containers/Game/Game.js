@@ -3,7 +3,7 @@ import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
 import {BLOCKED, CAN_PLACE, canPlace, getGrid, place} from './GameFuncs';
-import Controller, {DOWN, LEFT, RIGHT, UP} from '../../components/Controller/Controller';
+import Controller, {DOWN, LEFT, RIGHT} from '../../components/Controller/Controller';
 
 const newGrid = getGrid();
 
@@ -21,19 +21,16 @@ class Game extends Component {
       // this.setNewPiece(getRandomPiece());
       // setInterval(() => {
       //   let {currentPos: {y}} = this.state;
-      // y++;
-      // }, this.state.gameSpeed) ;
     }
 
-    newPiece = () => {
+    newPiece = (newPiece) => {
       const {board} = this.state;
-      const newPiece = getRandomPiece();
       const targetPos = {
-        x: 0,
-        y: Math.floor((board[0].length - newPiece.length) / 2)
+        x: Math.floor((board[0].length - newPiece.length) / 2),
+        y: 0
       };
       const result = canPlace(board, newPiece, targetPos.x, targetPos.y);
-
+      console.log('result', result);
       if (result === BLOCKED) {
         this.gameOver();
       } else {
@@ -51,15 +48,17 @@ class Game extends Component {
     startNewGame = () => {
       this.resetGame();
       this.newPiece();
+      this.startFlow();
+    }
 
+    startFlow = () => {
       this.setState({intervalId: setInterval(()=> {
         this.move(DOWN);
-        console.log('BAR');
       }, this.state.gameSpeed)
       });
     }
 
-    stopGame() {
+    stopFlow = () => {
       clearInterval(this.state.intervalId);
       this.setState({
         intervalId: null
@@ -107,6 +106,7 @@ class Game extends Component {
           board: place(board, currentPiece, currentPos.x, currentPos.y)
         }, () => {
           // add new piece
+          this.newPiece(getRandomPiece());
         });
       }
     }
@@ -123,6 +123,8 @@ class Game extends Component {
         <div>
           <button onClick={this.startNewGame}>START</button>
           <button onClick={this.resetGame}>RESET</button>
+          <button onClick={this.stopFlow}>STOP FLOW</button>
+          <button onClick={this.startFlow}>START FLOW</button>
         </div>
       </div>);
     }
