@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
-import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, rotate} from './GameFuncs';
+import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 
 const newGrid = getGrid();
@@ -103,7 +103,7 @@ class Game extends Component {
 
       if (result === BLOCKED && direction === DOWN) {
         this.setState({
-          board: place(board, currentPiece, currentPos.x, currentPos.y)
+          board: removeCompletedLines(place(board, currentPiece, currentPos.x, currentPos.y))
         }, () => {
           // add new piece
           this.newPiece(getRandomPiece());
