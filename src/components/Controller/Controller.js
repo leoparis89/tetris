@@ -4,6 +4,8 @@ const UP = 'UP';
 const DOWN = 'DOWN';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
+const ROTATE_LEFT = 'ROTATE_LEFT';
+const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
 const Controller = ({sendCommand}) => {
   document.addEventListener('keypress', (event) => {
@@ -21,6 +23,12 @@ const Controller = ({sendCommand}) => {
       break;
     case 'd':
       sendCommand(RIGHT);
+      break;
+    case 'a':
+      sendCommand(ROTATE_LEFT);
+      break;
+    case 'e':
+      sendCommand(ROTATE_RIGHT);
       break;
     }
   });
