@@ -3,6 +3,7 @@ import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
 import {canPlace, getGrid} from './GameFuncs';
+import Controller from '../../components/Controller/Controller';
 
 
 class Game extends Component {
@@ -54,13 +55,18 @@ class Game extends Component {
       const {board} = this.state;
       const result = canPlace(board, piece, x ,y);
     }
-    
+
+    handleSendCommand = (cmd) => {
+    }
+
     updateCurrentBoard() {
     }
 
     render() {
       const {board} = this.state;
-      return (<div className="container"><Screen board={board}/></div>);
+      return (<div className="container"><Screen board={board}/>
+        <Controller sendCommand ={this.handleSendCommand}/>
+      </div>);
     }
 }
 
