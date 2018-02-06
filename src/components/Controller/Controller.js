@@ -1,38 +1,41 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const UP = 'UP';
-const DOWN = 'DOWN';
-const LEFT = 'LEFT';
-const RIGHT = 'RIGHT';
-const ROTATE_LEFT = 'ROTATE_LEFT';
-const ROTATE_RIGHT = 'ROTATE_RIGHT';
+export const DOWN = 'DOWN';
+export const LEFT = 'LEFT';
+export const RIGHT = 'RIGHT';
+export const ROTATE_LEFT = 'ROTATE_LEFT';
+export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
-const Controller = ({sendCommand}) => {
-  document.addEventListener('keypress', (event) => {
-    const char = String.fromCharCode(event.keyCode);
 
-    switch (char) {
-    case 'z':
-      sendCommand(UP);
-      break;
-    case 's':
-      sendCommand(DOWN);
-      break;
-    case 'q':
-      sendCommand(LEFT);
-      break;
-    case 'd':
-      sendCommand(RIGHT);
-      break;
-    case 'a':
-      sendCommand(ROTATE_LEFT);
-      break;
-    case 'e':
-      sendCommand(ROTATE_RIGHT);
-      break;
-    }
-  });
-  return (<div>bars</div>);
-};
+class Controller extends Component {
+  componentDidMount() {
+    const {sendCommand} = this.props;
+    document.addEventListener('keydown', (event) => {
+      const char = event.key;
+
+      switch (char) {
+      case 's':
+        sendCommand(DOWN);
+        break;
+      case 'q':
+        sendCommand(LEFT);
+        break;
+      case 'd':
+        sendCommand(RIGHT);
+        break;
+      case 'a':
+        sendCommand(ROTATE_LEFT);
+        break;
+      case 'e':
+        sendCommand(ROTATE_RIGHT);
+        break;
+      }
+    });
+  }
+
+  render() {
+    return (<div>bar</div>);
+  }
+}
 
 export default Controller;
