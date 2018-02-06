@@ -9,7 +9,7 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
 class Controller extends Component {
   componentDidMount() {
-    const {sendCommand} = this.props;
+    const {sendCommand, rotate} = this.props;
     document.addEventListener('keydown', (event) => {
       const char = event.key;
 
@@ -24,10 +24,10 @@ class Controller extends Component {
         sendCommand(RIGHT);
         break;
       case 'a':
-        sendCommand(ROTATE_LEFT);
+        rotate(ROTATE_LEFT);
         break;
       case 'e':
-        sendCommand(ROTATE_RIGHT);
+        rotate(ROTATE_RIGHT);
         break;
       }
     });

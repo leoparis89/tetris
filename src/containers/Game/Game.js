@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
-import {BLOCKED, CAN_PLACE, canPlace, getGrid, place} from './GameFuncs';
-import Controller, {DOWN, LEFT, RIGHT} from '../../components/Controller/Controller';
+import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, rotate} from './GameFuncs';
+import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 
 const newGrid = getGrid();
 
@@ -42,6 +42,7 @@ class Game extends Component {
     }
 
     gameOver = () => {
+      this.stopFlow();
     }
 
     startNewGame = () => {
@@ -114,11 +115,25 @@ class Game extends Component {
       this.move(direction);
     }
 
+    handleRotate = (direction) => {
+      const {board, currentPiece, currentPos: {x, y}} = this.state;
+      const rotatedPiece = rotate(currentPiece, direction === ROTATE_LEFT);
+      const result = canPlace(board, currentPiece, x, y);
+
+      if (result === CAN_PLACE) {
+        this.setState({
+          currentBoard: place(board, rotatedPiece, x, y),
+          currentPiece: rotatedPiece
+        });
+      }
+    }
 
     render() {
       const {board, currentBoard} = this.state;
       return (<div className="container">{currentBoard && <Screen board={currentBoard}/>}
-        <Controller sendCommand ={this.handleSendCommand}/>
+        <Controller sendCommand ={this.handleSendCommand}
+          rotate={this.handleRotate}
+        />
         <div>
           <button onClick={this.startNewGame}>START</button>
           <button onClick={this.resetGame}>RESET</button>
