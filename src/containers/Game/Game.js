@@ -89,8 +89,8 @@ class Game extends Component {
         break;
       case RIGHT:
         targetPos.x++;
+        break;
       }
-      console.log('target x', targetPos.y);
 
       const result = canPlace(board, currentPiece, targetPos.x ,targetPos.y);
       if (result === CAN_PLACE) {
