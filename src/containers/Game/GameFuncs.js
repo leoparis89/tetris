@@ -1,8 +1,8 @@
 import {getRandomPiece} from './Pieces';
 
-const CAN_PLACE = 'CAN_PLACE';
-const BLOCKED = 'BLOCKED';
-const OFFSCREEN = 'OFFSCREEN';
+export const CAN_PLACE = 'CAN_PLACE';
+export const BLOCKED = 'BLOCKED';
+export const OFFSCREEN = 'OFFSCREEN';
 
 export const canPlace = (board, piece, x, y) => {
   const dim = piece.length;
