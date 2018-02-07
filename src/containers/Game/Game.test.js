@@ -32,7 +32,7 @@ test('reset game should set state correctly', () => {
     intervalId: 4
   });
 
-  wrapper.instance().resetGame();
+  wrapper.instance().resetBoards();
   const board = getGrid();
 
   const expected = {

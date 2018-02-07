@@ -17,10 +17,9 @@ class Game extends Component {
       intervalId: null // if there's a number here the game is running
     };
 
-    componentDidMount() {
-      // this.setNewPiece(getRandomPiece());
-      // setInterval(() => {
-      //   let {currentPos: {y}} = this.state;
+
+    injectNewPiece = () => {
+      this.newPiece(getRandomPiece());
     }
 
     newPiece = (newPiece) => {
@@ -30,6 +29,7 @@ class Game extends Component {
         y: 0
       };
       const result = canPlace(board, newPiece, targetPos.x, targetPos.y);
+
       if (result === BLOCKED) {
         this.gameOver();
       } else {
@@ -46,8 +46,8 @@ class Game extends Component {
     }
 
     startNewGame = () => {
-      this.resetGame();
-      this.newPiece(getRandomPiece());
+      this.resetBoards();
+      this.injectNewPiece();
       this.startFlow();
     }
 
@@ -65,7 +65,7 @@ class Game extends Component {
       });
     }
 
-    resetGame = () => {
+    resetBoards = () => {
       const newBoard = getGrid();
       this.setState({
         board: newBoard,
@@ -73,6 +73,11 @@ class Game extends Component {
         currentPos: {x: null, y: null},
         currentPiece: null,
       });
+    }
+
+    resetGame = () => {
+      this.resetBoards();
+      this.stopFlow();
     }
 
     move = (direction) => {
@@ -105,8 +110,7 @@ class Game extends Component {
         this.setState({
           board: removeCompletedLines(place(board, currentPiece, currentPos.x, currentPos.y))
         }, () => {
-          // add new piece
-          this.newPiece(getRandomPiece());
+          this.injectNewPiece();
         });
       }
     }
@@ -129,16 +133,16 @@ class Game extends Component {
     }
 
     render() {
-      const {board, currentBoard} = this.state;
+      const {currentBoard, intervalId} = this.state;
       return (<div className="container">{currentBoard && <Screen board={currentBoard}/>}
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
         />
         <div>
-          <button onClick={this.startNewGame}>START</button>
+          <button disabled={intervalId} onClick={this.startNewGame}>START</button>
           <button onClick={this.resetGame}>RESET</button>
-          <button onClick={this.stopFlow}>STOP FLOW</button>
-          <button onClick={this.startFlow}>START FLOW</button>
+          <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
+          <button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>
         </div>
       </div>);
     }

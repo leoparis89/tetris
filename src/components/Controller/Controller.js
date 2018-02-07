@@ -10,7 +10,7 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 class Controller extends Component {
   componentDidMount() {
     const {sendCommand, rotate} = this.props;
-    document.addEventListener('keydown', (event) => {
+    document.addEventListener('keypress', (event) => {
       const char = event.key;
 
       switch (char) {
@@ -34,7 +34,7 @@ class Controller extends Component {
   }
 
   render() {
-    return (<div>bar</div>);
+    return (<div></div>);
   }
 }
 
