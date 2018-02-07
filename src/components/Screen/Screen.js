@@ -3,12 +3,13 @@ import './Screen.scss';
 
 const Screen = ({board}) => {
   return (<div className="frame">
-    {board.map(el => {
-      return (<tr>
-        {
-          el.map(r => (<td><div className={`block block__color--${r}`}></div></td>))
-        }
-      </tr>);
+    {board.map((row, i) => {
+      return (
+        <div key={i}>
+          {
+            row.map((col, j) => (<span key={j}className={`block block__color--${col}`}></span>))
+          }
+        </div>);
     })}
   </div>);
 };
