@@ -36,7 +36,7 @@ export const removeCompletedLines = (board) => {
 
   for (let j = boardHeight - 1; j >= 0; j--) {
     let fullLine = true;
-    for (let i = 0; i < boardWidth - 1; i++) {
+    for (let i = 0; i < boardWidth; i++) {
       if (result[j][i] === 0) {
         fullLine = false;
       }

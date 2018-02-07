@@ -14,7 +14,8 @@ class Game extends Component {
       currentPos: {x: null, y: null},
       currentPiece: null,
       gameSpeed: 1000,
-      intervalId: null // if there's a number here the game is running
+      intervalId: null, // if there's a number here the game is running
+      gameOver: false
     };
 
 
@@ -43,6 +44,7 @@ class Game extends Component {
 
     gameOver = () => {
       this.stopFlow();
+      this.setState({gameOver: true});
     }
 
     startNewGame = () => {
@@ -133,7 +135,7 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId} = this.state;
+      const {currentBoard, intervalId, gameOver} = this.state;
       return (<div className="container">{currentBoard && <Screen board={currentBoard}/>}
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
@@ -143,6 +145,7 @@ class Game extends Component {
           <button onClick={this.resetGame}>RESET</button>
           <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
           <button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>
+          {gameOver && <h1>Game Over</h1>}
         </div>
       </div>);
     }

@@ -113,6 +113,22 @@ test('removeCompletedLines should clean out completed lines', () => {
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
+
+  board = [
+    [1,1,1,0],
+    [1,1,1,0],
+    [1,1,1,0],
+    [2,1,1,0]
+  ];
+
+  expected = [
+    [1,1,1,0],
+    [1,1,1,0],
+    [1,1,1,0],
+    [2,1,1,0]
+  ];
+
+  expect(removeCompletedLines(board)).toEqual(expected);
 });
 
 test('place should return a board with the printed piece', () => {

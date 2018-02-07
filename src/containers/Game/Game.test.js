@@ -29,7 +29,8 @@ test('reset game should set state correctly', () => {
     currentPos: {x: 4, y: 8},
     currentPiece: [],
     gameSpeed: 40,
-    intervalId: 4
+    intervalId: 4,
+    gameOver: true
   });
 
   wrapper.instance().resetBoards();
@@ -41,7 +42,8 @@ test('reset game should set state correctly', () => {
     currentPos: {x: null, y: null},
     currentPiece: null,
     gameSpeed: 40,
-    intervalId: 4
+    intervalId: 4,
+    gameOver: true,
   };
 
   expect(wrapper.instance().state).toEqual(expected);
