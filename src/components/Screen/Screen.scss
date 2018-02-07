@@ -2,18 +2,25 @@
   display: inline-block;
   height: 30px;
   width: 30px;
+  //border-radius: 3px; ugly
 
   &__color--1 {
-    background: coral;
+    background: #54ffd5;
   }
   &__color--2 {
-    background: blueviolet;
+    background: #95c8ff;
   }
   &__color--3 {
-    background: lightcyan;
+    background: #ffc0fd;
   }
   &__color--4 {
-    background: sienna;
+    background: #f7ffce;
+  }
+  &__color--5 {
+    background: #f984ff;
+  }
+  &__color--6 {
+    background: #ff5a5c;
   }
 }
 
