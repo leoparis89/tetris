@@ -21,7 +21,7 @@ test('stop flow should set correct state', () => {
   expect(intervalId).toEqual(null);
 });
 
-test('reset game should set state correctly', () => {
+test('resetBoards should set state correctly', () => {
   const wrapper = shallow(<Game />);
   wrapper.instance().setState({
     board: [],
