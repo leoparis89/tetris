@@ -75,8 +75,6 @@ class Game extends Component {
       this.setState({
         board: newBoard,
         currentBoard: newBoard,
-        currentPos: {x: null, y: null},
-        currentPiece: null,
       });
     }
 

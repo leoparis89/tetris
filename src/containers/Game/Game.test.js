@@ -39,8 +39,8 @@ test('reset game should set state correctly', () => {
   const expected = {
     board: board,
     currentBoard: board,
-    currentPos: {x: null, y: null},
-    currentPiece: null,
+    currentPos: {x: 4, y: 8},
+    currentPiece: [],
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,
