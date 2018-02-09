@@ -143,12 +143,12 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId, gameOver, currentPiece} = this.state;
+      const {currentBoard, intervalId, gameOver, nextPiece} = this.state;
       return (<div className="container">{currentBoard && <Screen board={currentBoard}/>}
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
         />
-        <Info nextPiece={currentPiece}/>
+        <Info nextPiece={nextPiece}/>
         <div>
           <button disabled={intervalId} onClick={this.startNewGame}>START</button>
           <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
