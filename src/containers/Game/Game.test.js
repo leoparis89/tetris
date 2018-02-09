@@ -41,6 +41,7 @@ test('reset game should set state correctly', () => {
     currentBoard: board,
     currentPos: {x: null, y: null},
     currentPiece: null,
+    nextPiece: null,
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,

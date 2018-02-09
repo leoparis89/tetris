@@ -22,10 +22,22 @@ class Game extends Component {
 
 
   injectNewPiece = () => {
-    this.newPiece(getRandomPiece());
+    const {nextPiece} = this.state;
+    debugger;
+    this.setState({currentPiece: nextPiece, nextPiece: getRandomPiece()});
+
+    // this.newPiece(getRandomPiece());
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    debugger;
+    if (prevState.currentPiece !== this.state.currentPiece) {
+      this.newPiece(this.state.currentPiece);
+    }
   }
 
   newPiece = (newPiece) => {
+    debugger;
     const {board} = this.state;
     const targetPos = {
       x: Math.floor((board[0].length - newPiece.length) / 2),
@@ -51,6 +63,7 @@ class Game extends Component {
 
   startNewGame = () => {
     this.resetBoards();
+    this.initFirstPiece();
     this.injectNewPiece();
     this.startFlow();
   }
@@ -80,8 +93,14 @@ class Game extends Component {
     });
   }
 
+  initFirstPiece = () => {
+    debugger;
+    this.setState({nextPiece: getRandomPiece()});
+  }
+
   resetGame = () => {
     this.resetBoards();
+    this.initFirstPiece();
     this.stopFlow();
   }
 
@@ -138,10 +157,10 @@ class Game extends Component {
   }
 
   render() {
-    const {currentBoard, intervalId, gameOver} = this.state;
+    const {currentBoard, intervalId, gameOver, nextPiece} = this.state;
     return (<div className="container">{currentBoard && <Screen board={currentBoard}/>
     }
-    <Info />
+    <Info nextPiece={nextPiece}/>
     <Controller sendCommand ={this.handleSendCommand}
       rotate={this.handleRotate}
     />
