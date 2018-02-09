@@ -105,7 +105,7 @@ test('inject piece should call game over is injected piece is blocked', () => {
   expect(spy).toHaveBeenCalled();
 });
 
-test('move piece should update current board with new position if there is romm', () => {
+test('move piece should update current board with new position if there is room', () => {
   const board = [
     [0,0,0,0,0],
     [0,0,0,0,0],
@@ -149,7 +149,7 @@ test('move piece should not do anything if piece flow is not ongoing', () => {
   expect(wrapper.instance().state.currentBoard).toEqual(getGrid());
 });
 
-test('move piece should print current piece in board and generate a new one if current piece is blocked movings down', () =>{
+test('move piece should print current piece in board and inject new piece if current piece is blocked moving down', () =>{
   const board = [
     [0,0,0,0,0],
     [0,0,0,0,0],
@@ -182,7 +182,7 @@ test('move piece should print current piece in board and generate a new one if c
     intervalId: 4
   });
 
-  const spy = jest.spyOn(wrapper.instance(), 'injectPiece');
+  const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
   wrapper.instance().move('DOWN');
   expect(wrapper.instance().state.board).toEqual(expected);
   expect(spy).toHaveBeenCalled();
