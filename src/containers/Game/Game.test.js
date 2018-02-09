@@ -180,6 +180,7 @@ test('move piece should print current piece in board and inject new piece if cur
   wrapper.setState({
     board,
     currentPiece,
+    nextPiece: [],
     currentPos: {x:0, y:3},
     intervalId: 4
   });
