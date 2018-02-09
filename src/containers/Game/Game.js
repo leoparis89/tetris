@@ -5,12 +5,12 @@ import {getRandomPiece} from './Pieces';
 import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 
-const newGrid = getGrid();
+const newBoard = getGrid();
 
 class Game extends Component {
     state = {
-      board: newGrid,
-      currentBoard: newGrid,
+      board: newBoard,
+      currentBoard: newBoard,
       currentPos: {x: null, y: null},
       currentPiece: null,
       gameSpeed: 1000,
@@ -19,9 +19,7 @@ class Game extends Component {
     };
 
 
-    injectNewPiece = () => {
-      this.injectPiece(getRandomPiece());
-    }
+    injectNewPiece = () => this.injectPiece(getRandomPiece());
 
     /*
      * Injects a piece on the top of the current Board
@@ -57,6 +55,10 @@ class Game extends Component {
     }
 
     startFlow = () => {
+      if (this.state.intervalId) {
+        clearInterval(this.state.intervalId);
+      }
+
       this.setState({intervalId: setInterval(()=> {
         this.move(DOWN);
       }, this.state.gameSpeed)
@@ -71,17 +73,12 @@ class Game extends Component {
     }
 
     resetBoards = () => {
-      const newBoard = getGrid();
       this.setState({
         board: newBoard,
         currentBoard: newBoard,
       });
     }
 
-    resetGame = () => {
-      this.resetBoards();
-      this.stopFlow();
-    }
 
     move = (direction) => {
       const {board, currentPiece, currentPos, intervalId} = this.state;
@@ -143,7 +140,6 @@ class Game extends Component {
         />
         <div>
           <button disabled={intervalId} onClick={this.startNewGame}>START</button>
-          <button onClick={this.resetGame}>RESET</button>
           <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
           <button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>
           {gameOver && <h1>Game Over</h1>}
