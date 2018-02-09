@@ -28,6 +28,7 @@ test('resetBoards should set state correctly', () => {
     currentBoard: [],
     currentPos: {x: 4, y: 8},
     currentPiece: [],
+    nextPiece: [],
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true
@@ -41,6 +42,7 @@ test('resetBoards should set state correctly', () => {
     currentBoard: board,
     currentPos: {x: 4, y: 8},
     currentPiece: [],
+    nextPiece: [],
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,
@@ -186,4 +188,19 @@ test('move piece should print current piece in board and inject new piece if cur
   wrapper.instance().move('DOWN');
   expect(wrapper.instance().state.board).toEqual(expected);
   expect(spy).toHaveBeenCalled();
+});
+
+test('reset pieces should set state correctly', () => {
+  const wrapper = shallow(<Game />);
+
+  wrapper.setState({
+    currentPiece: [],
+    nextPiece: []
+  });
+
+  wrapper.instance().resetPieces();
+  const {nextPiece, currentPiece} = wrapper.instance().state;
+
+  expect(currentPiece).toBe(null);
+  expect(nextPiece.length).not.toBe(0);
 });

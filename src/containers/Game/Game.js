@@ -14,6 +14,7 @@ class Game extends Component {
       currentBoard: newBoard,
       currentPos: {x: null, y: null},
       currentPiece: null,
+      nextPiece: null,
       gameSpeed: 1000,
       intervalId: null, // if there's a number here the game is running
       gameOver: false
@@ -51,6 +52,7 @@ class Game extends Component {
 
     startNewGame = () => {
       this.resetBoards();
+      this.resetPieces();
       this.injectNewPiece();
       this.startFlow();
     }
@@ -80,6 +82,7 @@ class Game extends Component {
       });
     }
 
+    resetPieces = () => this.setState({currentPiece:null, nextPiece: getRandomPiece()});
 
     move = (direction) => {
       const {board, currentPiece, currentPos, intervalId} = this.state;
