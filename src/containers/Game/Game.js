@@ -21,7 +21,12 @@ class Game extends Component {
     };
 
 
-    injectNewPiece = () => this.injectPiece(getRandomPiece());
+    // injectNewPiece = () => this.injectPiece(getRandomPiece());
+    injectNewPiece = () => {
+      const {nextPiece} = this.state;
+      this.injectPiece(nextPiece);
+      this.setState({currentPiece: nextPiece, nextPiece: getRandomPiece()});
+    };
 
     /*
      * Injects a piece on the top of the current Board
@@ -52,8 +57,9 @@ class Game extends Component {
 
     startNewGame = () => {
       this.resetBoards();
-      this.resetPieces();
-      this.injectNewPiece();
+      this.resetPieces().then(
+        () => this.injectNewPiece()
+      );
       this.startFlow();
     }
 
@@ -82,7 +88,7 @@ class Game extends Component {
       });
     }
 
-    resetPieces = () => this.setState({currentPiece:null, nextPiece: getRandomPiece()});
+    resetPieces = () => new Promise(res => this.setState({currentPiece:null, nextPiece: getRandomPiece()}, res()));
 
     move = (direction) => {
       const {board, currentPiece, currentPos, intervalId} = this.state;
