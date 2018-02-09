@@ -20,24 +20,27 @@ class Game extends Component {
 
 
     injectNewPiece = () => {
-      this.newPiece(getRandomPiece());
+      this.injectPiece(getRandomPiece());
     }
 
-    newPiece = (newPiece) => {
+    /*
+     * Injects a piece on the top of the current Board
+     */
+    injectPiece = (piece) => {
       const {board} = this.state;
       const targetPos = {
-        x: Math.floor((board[0].length - newPiece.length) / 2),
+        x: Math.floor((board[0].length - piece.length) / 2),
         y: 0
       };
-      const result = canPlace(board, newPiece, targetPos.x, targetPos.y);
+      const result = canPlace(board, piece, targetPos.x, targetPos.y);
 
       if (result === BLOCKED) {
         this.gameOver();
       } else {
         this.setState({
-          currentPiece: newPiece,
+          currentPiece: piece,
           currentPos: targetPos,
-          currentBoard: place(board,newPiece, targetPos.x, targetPos.y)
+          currentBoard: place(board,piece, targetPos.x, targetPos.y)
         });
       }
     }
