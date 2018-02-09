@@ -4,6 +4,7 @@ import './Game.scss';
 import {getRandomPiece} from './Pieces';
 import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
+import Info from '../../components/Info/Info';
 
 const newBoard = getGrid();
 
@@ -138,6 +139,7 @@ class Game extends Component {
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
         />
+        <Info />
         <div>
           <button disabled={intervalId} onClick={this.startNewGame}>START</button>
           <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
