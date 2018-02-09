@@ -3,7 +3,7 @@ import './Screen.scss';
 
 const Screen = ({board}) => {
   return (<div className="frame">
-    {board.map((row, i) => {
+    {board && board.map((row, i) => {
       return (
         <div key={i}>
           {

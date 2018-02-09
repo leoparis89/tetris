@@ -1,8 +1,9 @@
 import React from 'react';
+import Screen from '../Screen/Screen';
 
 const Info = ({nextPiece, lines, score}) => {
   return (<div>
-    Hello
+    <Screen board={nextPiece}/>
   </div>);
 };
 
