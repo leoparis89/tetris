@@ -19,7 +19,7 @@
     "postinstall": "yarn build",
     "start": "node server/app.js",
     "test": "jest",
-    "test:w": "jest --watch",
+    "test:w": "jest --watch  --verbose",
     "snap": "jest --updateSnapshot"
   },
   "dependencies": {
