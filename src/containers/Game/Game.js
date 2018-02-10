@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
-import {BLOCKED, CAN_PLACE, canPlace, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
+import {BLOCKED, CAN_PLACE, canPlace, getFullLines, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 import Info from '../../components/Info/Info';
 
@@ -117,13 +117,23 @@ class Game extends Component {
       }
 
       if (result === BLOCKED && direction === DOWN) {
-        this.setState({
-          board: removeCompletedLines(place(board, currentPiece, currentPos.x, currentPos.y))
-        }, () => {
-          this.injectNewPiece();
-        });
+        const boardWithPiece = place(board, currentPiece, currentPos.x, currentPos.y);
+
+        if (getFullLines(boardWithPiece)) {
+          this.stopFlow();
+          setTimeout(() => {
+            this.updateBoardAndInjectNewPiece(removeCompletedLines(boardWithPiece));
+            this.startFlow();
+          }, 2000 );
+
+        } else {
+          this.updateBoardAndInjectNewPiece(boardWithPiece);
+          this.startFlow();
+        }
       }
     }
+
+    updateBoardAndInjectNewPiece = board => this.setState({board}, () => this.injectNewPiece());
 
     handleSendCommand = (direction) => {
       this.move(direction);
