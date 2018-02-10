@@ -1,4 +1,4 @@
-import {canPlace, place, removeCompletedLines, rotate} from './GameFuncs';
+import {canPlace, getFullLines, place, removeCompletedLines, rotate} from './GameFuncs';
 
 test('canPlace should return CAN_PLACE if move is possible', () => {
 
@@ -210,3 +210,24 @@ test('rotate should rotate the pice corectly', () => {
 
   expect(rotate(piece, false)).toEqual(expected);
 });
+
+test('getFullLines should return the line numbers of the full lines', () => {
+
+  const board1 = [
+    [1, 1, 1, 1],
+    [0, 1, 1, 0],
+    [1, 1, 1, 1],
+    [1, 1, 1, 0]
+  ];
+
+  const board2 = [
+    [1, 1, 0, 1],
+    [0, 1, 1, 0],
+    [1, 1, 0, 1],
+    [1, 1, 1, 0]
+  ];
+
+  expect(getFullLines(board1)).toEqual([0, 2]);
+  expect(getFullLines(board2)).toEqual(null);
+});
+

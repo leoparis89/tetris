@@ -120,3 +120,17 @@ export const getGrid = () => {
 
   return grid;
 };
+
+export const getFullLines = grid => {
+  const result = [];
+
+  for (let i = 0; i < grid.length; i++) {
+    let fullLine = true;
+    for (let j = 0; j < grid[i].length; j++) {
+      if (!grid[i][j]) fullLine = false;
+    }
+    if (fullLine) result.push(i);
+  }
+
+  return result.length ? result : null;
+};
