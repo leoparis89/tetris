@@ -32,7 +32,6 @@ test('resetBoards should set state correctly', () => {
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,
-    linesInDeletion: [3,4]
   });
 
   wrapper.instance().resetBoards();
@@ -47,7 +46,6 @@ test('resetBoards should set state correctly', () => {
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,
-    linesInDeletion: [3, 4]
   };
 
   expect(wrapper.instance().state).toEqual(expected);
