@@ -15,6 +15,7 @@ class Game extends Component {
       currentPos: {x: null, y: null},
       currentPiece: null,
       nextPiece: null,
+      linesInDeletion: null,
       gameSpeed: 1000,
       intervalId: null, // if there's a number here the game is running
       gameOver: false
@@ -153,8 +154,8 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId, gameOver, nextPiece} = this.state;
-      return (<div className="container">{currentBoard && <Screen board={currentBoard}/>}
+      const {currentBoard, intervalId, gameOver, nextPiece, linesInDeletion} = this.state;
+      return (<div className="container"><Screen board={currentBoard} linesInDeletion={linesInDeletion}/>
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
         />
