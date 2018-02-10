@@ -23,10 +23,14 @@
     background: #ff5a5c;
   }
   &--delete {
-    background: black!important;
+    animation: blinker 1s linear infinite;
   }
 }
 
 .frame {
   border: darkslateblue solid 3px;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
 }
