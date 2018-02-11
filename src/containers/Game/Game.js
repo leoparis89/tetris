@@ -20,7 +20,8 @@ class Game extends Component {
       gameOver: false,
       level: 0,
       score: 0,
-      lines: 0
+      lines: 0,
+      effects: false
     };
 
 
@@ -125,14 +126,17 @@ class Game extends Component {
         const boardWithPiece = place(board, currentPiece, currentPos.x, currentPos.y);
         if (getFullLines(boardWithPiece)) {
           this.stopFlow();
+          this.setState({effects: true});
           setTimeout(() => {
-            // this.updateBoardAndInjectNewPiece(removeCompletedLines(boardWithPiece));
-            this.setState({board: removeCompletedLines(boardWithPiece)});
+            this.setState({board: removeCompletedLines(boardWithPiece),
+              effects: false,
+              lines: this.state.lines + getFullLines(boardWithPiece).length,
+              score: this.state.score + getFullLines(boardWithPiece).length*10
+            });
             this.startFlow();
           }, 2000 );
 
         } else {
-          // this.updateBoardAndInjectNewPiece(boardWithPiece);
           this.setState({board: boardWithPiece});
           this.startFlow();
         }
@@ -167,13 +171,13 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId, gameOver, nextPiece} = this.state;
+      const {currentBoard, intervalId, gameOver, nextPiece, lines, score, effects} = this.state;
       return (<div className="container">
         <div className="main-screen">
           <div className="game-screen">
-            <Screen board={currentBoard} />
+            <Screen board={currentBoard} effects={effects}/>
           </div>
-          <Info nextPiece={nextPiece}/>
+          <Info nextPiece={nextPiece} lines={lines} score={score}/>
         </div>
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
