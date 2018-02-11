@@ -17,7 +17,10 @@ class Game extends Component {
       nextPiece: null,
       gameSpeed: 1000,
       intervalId: null, // if there's a number here the game is running
-      gameOver: false
+      gameOver: false,
+      level: 0,
+      score: 0,
+      lines: 0
     };
 
 
@@ -165,11 +168,16 @@ class Game extends Component {
 
     render() {
       const {currentBoard, intervalId, gameOver, nextPiece} = this.state;
-      return (<div className="container"><Screen board={currentBoard} />
+      return (<div className="container">
+        <div className="main-screen">
+          <div className="game-screen">
+            <Screen board={currentBoard} />
+          </div>
+          <Info nextPiece={nextPiece}/>
+        </div>
         <Controller sendCommand ={this.handleSendCommand}
           rotate={this.handleRotate}
         />
-        <Info nextPiece={nextPiece}/>
         <div>
           <button disabled={intervalId} onClick={this.startNewGame}>START</button>
           <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>

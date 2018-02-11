@@ -46,6 +46,9 @@ test('resetBoards should set state correctly', () => {
     gameSpeed: 40,
     intervalId: 4,
     gameOver: true,
+    score: 0,
+    level: 0,
+    lines: 0
   };
 
   expect(wrapper.instance().state).toEqual(expected);

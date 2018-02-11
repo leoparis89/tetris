@@ -10,3 +10,13 @@ $dark-color: darken($base-color, 35%);
   align-items: center;
   background: linear-gradient($light-color, $dark-color);
 }
+
+.main-screen {
+  border: #95c8ff 4px solid;
+  display: flex;
+  align-items: center;
+}
+
+.game-screen {
+  border: pink 4px solid
+}
