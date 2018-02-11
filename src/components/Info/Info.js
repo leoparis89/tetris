@@ -3,7 +3,7 @@ import Screen from '../Screen/Screen';
 
 const Info = ({nextPiece, lines, score}) => {
   return (<div>
-    <Screen board={nextPiece}/>
+    <Screen board={nextPiece} effects={false}/>
   </div>);
 };
 

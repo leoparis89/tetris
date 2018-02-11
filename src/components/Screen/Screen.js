@@ -1,11 +1,15 @@
 import React from 'react';
 import './Screen.scss';
 
-const Screen = ({board}) => {
+const Screen = ({board, effects=true}) => {
   return (<div className="frame">
     {board && board.map((row, i) => {
-      let isFullLine = true;
-      row.map(el => el || (isFullLine = false));
+      let isFullLine;
+
+      if (effects) {
+        isFullLine = true;
+        row.map(el => el || (isFullLine = false));
+      }
 
       return (
         <div key={i}>

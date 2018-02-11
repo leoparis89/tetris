@@ -32,3 +32,15 @@ test('Screen should add delete class to the blocks in deletion', () => {
   expect(wrapper.find('.block--delete').length).toEqual(4);
 });
 
+test('Screen should not add delete class to the blocks in deletion if effects prop is false', () => {
+  const wrapper = shallow(<Screen effects={false}/>);
+
+  const board = [
+    [1,0,1,0],
+    [1,0,0,1],
+    [1,1,2,1]
+  ];
+
+  wrapper.setProps({board});
+  expect(wrapper.find('.block--delete').length).toEqual(0);
+});
