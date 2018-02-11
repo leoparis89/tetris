@@ -151,7 +151,7 @@ test('move piece should not do anything if piece flow is not ongoing', () => {
   expect(wrapper.instance().state.currentBoard).toEqual(getGrid());
 });
 
-test('move piece should print current piece in board and inject new piece if current piece is blocked moving down', () =>{
+test('move piece should print current piece in board if it is blocked moving down', () =>{
   const board = [
     [0,0,0,0,0],
     [0,0,0,0,0],
@@ -180,16 +180,16 @@ test('move piece should print current piece in board and inject new piece if cur
   wrapper.setState({
     board,
     currentPiece,
-    nextPiece: [],
     currentPos: {x:0, y:3},
     intervalId: 4
   });
 
-  const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
+  // const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
   wrapper.instance().move('DOWN');
   expect(wrapper.instance().state.board).toEqual(expected);
-  expect(spy).toHaveBeenCalled();
+  // expect(spy).toHaveBeenCalled();
 });
+
 
 test('reset pieces should set state correctly', () => {
   const wrapper = shallow(<Game />);

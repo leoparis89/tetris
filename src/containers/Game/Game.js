@@ -10,8 +10,8 @@ const newBoard = getGrid();
 
 class Game extends Component {
     state = {
-      board: newBoard,
-      currentBoard: newBoard,
+      board: newBoard.slice(),
+      currentBoard: newBoard.slice(),
       currentPos: {x: null, y: null},
       currentPiece: null,
       nextPiece: null,
@@ -24,6 +24,7 @@ class Game extends Component {
     // injectNewPiece = () => this.injectPiece(getRandomPiece());
     injectNewPiece = () => {
       const {nextPiece} = this.state;
+      if (!nextPiece) return;
       this.injectPiece(nextPiece);
       this.setState({currentPiece: nextPiece, nextPiece: getRandomPiece()});
     };
@@ -56,10 +57,10 @@ class Game extends Component {
     }
 
     startNewGame = () => {
-      this.resetBoards();
+      // this.resetBoards();
       this.setState({gameOver: false});
       this.resetPieces().then(
-        () => this.injectNewPiece()
+        () => this.resetBoards()
       );
       this.startFlow();
     }
@@ -84,8 +85,8 @@ class Game extends Component {
 
     resetBoards = () => {
       this.setState({
-        board: newBoard,
-        currentBoard: newBoard,
+        board: newBoard.slice(),
+        currentBoard: newBoard.slice(),
       });
     }
 
@@ -122,27 +123,37 @@ class Game extends Component {
         if (getFullLines(boardWithPiece)) {
           this.stopFlow();
           setTimeout(() => {
-            this.updateBoardAndInjectNewPiece(removeCompletedLines(boardWithPiece));
+            // this.updateBoardAndInjectNewPiece(removeCompletedLines(boardWithPiece));
+            this.setState({board: removeCompletedLines(boardWithPiece)});
             this.startFlow();
           }, 2000 );
 
         } else {
-          this.updateBoardAndInjectNewPiece(boardWithPiece);
+          // this.updateBoardAndInjectNewPiece(boardWithPiece);
+          this.setState({board: boardWithPiece});
           this.startFlow();
         }
       }
     }
 
-    updateBoardAndInjectNewPiece = board => this.setState({board}, () => this.injectNewPiece());
+    // updateBoardAndInjectNewPiece = board => this.setState({board}, () => this.injectNewPiece());
+
+    componentDidUpdate(prevProps, prevState) {
+      if (this.state.board !== prevState.board) {
+        // debugger;
+        this.injectNewPiece();
+      }
+    }
 
     handleSendCommand = (direction) => {
       this.move(direction);
     }
 
     handleRotate = (direction) => {
+      if (!this.state.intervalId) return;
       const {board, currentPiece, currentPos: {x, y}} = this.state;
       const rotatedPiece = rotate(currentPiece, direction === ROTATE_LEFT);
-      const result = canPlace(board, currentPiece, x, y);
+      const result = canPlace(board, rotatedPiece, x, y);
 
       if (result === CAN_PLACE) {
         this.setState({
