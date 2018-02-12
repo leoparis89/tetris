@@ -18,14 +18,13 @@ class Game extends Component {
       gameSpeed: 1000,
       intervalId: null, // if there's a number here the game is running
       gameOver: false,
-      level: 0,
+      level: 1,
       score: 0,
       lines: 0,
       effects: false
     };
 
 
-    // injectNewPiece = () => this.injectPiece(getRandomPiece());
     injectNewPiece = () => {
       const {nextPiece} = this.state;
       if (!nextPiece) return;
@@ -61,7 +60,6 @@ class Game extends Component {
     }
 
     startNewGame = () => {
-      // this.resetBoards();
       this.setState({gameOver: false});
       this.resetPieces().then(
         () => this.resetBoards()
@@ -115,6 +113,7 @@ class Game extends Component {
       }
 
       const result = canPlace(board, currentPiece, targetPos.x ,targetPos.y);
+
       if (result === CAN_PLACE) {
         this.setState({
           currentBoard: place(board, currentPiece, targetPos.x, targetPos.y),
@@ -124,30 +123,31 @@ class Game extends Component {
 
       if (result === BLOCKED && direction === DOWN) {
         const boardWithPiece = place(board, currentPiece, currentPos.x, currentPos.y);
-        if (getFullLines(boardWithPiece)) {
-          this.stopFlow();
-          this.setState({effects: true});
-          setTimeout(() => {
-            this.setState({board: removeCompletedLines(boardWithPiece),
-              effects: false,
-              lines: this.state.lines + getFullLines(boardWithPiece).length,
-              score: this.state.score + getFullLines(boardWithPiece).length*10
-            });
-            this.startFlow();
-          }, 2000 );
-
-        } else {
-          this.setState({board: boardWithPiece});
-          this.startFlow();
-        }
+        this.handleNewBoard(boardWithPiece);
       }
     }
 
-    // updateBoardAndInjectNewPiece = board => this.setState({board}, () => this.injectNewPiece());
+    handleNewBoard(board) {
+      if (getFullLines(board)) {
+        this.stopFlow();
+        this.setState({effects: true});
+        setTimeout(() => {
+          this.setState({board: removeCompletedLines(board),
+            effects: false,
+            lines: this.state.lines + getFullLines(board).length,
+            score: this.state.score + getFullLines(board).length*10
+          });
+          this.startFlow();
+        }, 2000 );
+
+      } else {
+        this.setState({board: board});
+        this.startFlow();
+      }
+    }
 
     componentDidUpdate(prevProps, prevState) {
       if (this.state.board !== prevState.board) {
-        // debugger;
         this.injectNewPiece();
       }
     }
