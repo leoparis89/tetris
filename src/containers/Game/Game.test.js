@@ -55,60 +55,108 @@ test('resetBoards should set state correctly', () => {
   expect(wrapper.instance().state).toEqual(expected);
 });
 
-test('inject piece should add piece to currentBoard at start position if possible', () => {
-  const board = [
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,1,0]
-  ];
-
-  const newPiece = [
-    [0,0,1],
-    [0,0,1],
-    [0,1,1]
-  ];
-
-  const expected = [
-    [0,0,0,1,0],
-    [0,0,0,1,0],
-    [0,0,1,1,0],
-    [0,0,0,1,0]
-  ];
 
 
-  const wrapper = shallow(<Game />);
-  wrapper.setState({
-    board
+describe('injectPiece', () => {
+  test('inject piece should add piece to currentBoard at start position if possible', () => {
+    const board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,1,0]
+    ];
+
+    const newPiece = [
+      [0,0,1],
+      [0,0,1],
+      [0,1,1]
+    ];
+
+    const expected = [
+      [0,0,0,1,0],
+      [0,0,0,1,0],
+      [0,0,1,1,0],
+      [0,0,0,1,0]
+    ];
+
+
+    const wrapper = shallow(<Game />);
+    wrapper.setState({
+      board
+    });
+
+    wrapper.instance().injectPiece(newPiece);
+
+    expect(wrapper.instance().state.currentBoard).toEqual(expected);
   });
 
-  wrapper.instance().injectPiece(newPiece);
+  test('inject piece should call game over is injected piece is blocked', () => {
+    const board = [
+      [0,0,0,0,0],
+      [0,0,0,0,0],
+      [0,0,0,1,0],
+      [0,0,0,1,0]
+    ];
 
-  expect(wrapper.instance().state.currentBoard).toEqual(expected);
+    const newPiece = [
+      [0,0,1],
+      [0,0,1],
+      [0,1,1]
+    ];
+
+    const wrapper = shallow(<Game />);
+    wrapper.setState({
+      board
+    });
+
+    const spy = jest.spyOn(wrapper.instance(), 'gameOver');
+    wrapper.instance().injectPiece(newPiece);
+    expect(spy).toHaveBeenCalled();
+  });
 });
 
-test('inject piece should call game over is injected piece is blocked', () => {
-  const board = [
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,1,0],
-    [0,0,0,1,0]
-  ];
+describe('Inject new piece', () => {
+  test('it should not inject nextPiece if nextPiece is null', () => {
+    const wrapper = shallow(<Game />);
+    wrapper.setState({
+      nextPiece: null
+    });
 
-  const newPiece = [
-    [0,0,1],
-    [0,0,1],
-    [0,1,1]
-  ];
-
-  const wrapper = shallow(<Game />);
-  wrapper.setState({
-    board
+    wrapper.instance().injectNewPiece();
+    const spy = jest.spyOn(wrapper.instance(), 'injectPiece');
+    expect(spy).not.toHaveBeenCalled();
   });
 
-  const spy = jest.spyOn(wrapper.instance(), 'gameOver');
-  wrapper.instance().injectPiece(newPiece);
-  expect(spy).toHaveBeenCalled();
+  test('it should inject nextPiece in currentBoard', () => {
+    const piece = [
+      [0,0,1],
+      [0,0,1],
+      [0,1,1]
+    ];
+
+    const wrapper = shallow(<Game />);
+
+    wrapper.setState({
+      nextPiece: piece
+    });
+
+    const spy = jest.spyOn(wrapper.instance(), 'injectPiece');
+
+    wrapper.instance().injectNewPiece();
+    expect(spy).toHaveBeenCalledWith(piece);
+  });
+
+  test('it should generate a new nextPiece', () => {
+    const wrapper = shallow(<Game />);
+
+    wrapper.setState({
+      nextPiece: []
+    });
+
+
+    wrapper.instance().injectNewPiece();
+    expect(wrapper.instance().state.nextPiece.length).not.toBe(0);
+  });
 });
 
 test('move piece should update current board with new position if there is room', () => {
@@ -188,9 +236,9 @@ test('move piece should print current piece in board if it is blocked moving dow
     intervalId: 4
   });
 
-  // const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
   wrapper.instance().move('DOWN');
   expect(wrapper.instance().state.board).toEqual(expected);
+  // const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
   // expect(spy).toHaveBeenCalled();
 });
 

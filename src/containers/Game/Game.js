@@ -30,7 +30,7 @@ class Game extends Component {
       const {nextPiece} = this.state;
       if (!nextPiece) return;
       this.injectPiece(nextPiece);
-      this.setState({currentPiece: nextPiece, nextPiece: getRandomPiece()});
+      this.setState({nextPiece: getRandomPiece()});
     };
 
     /*
