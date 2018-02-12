@@ -179,8 +179,8 @@ class Game extends Component {
           </div>
           <Info nextPiece={nextPiece} lines={lines} score={score}/>
         </div>
-        <Controller sendCommand ={this.handleSendCommand}
-          rotate={this.handleRotate}
+        <Controller onMove ={this.handleSendCommand}
+          onRotate={this.handleRotate}
         />
         <div>
           <button disabled={intervalId} onClick={this.startNewGame}>START</button>

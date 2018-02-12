@@ -9,25 +9,25 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
 class Controller extends Component {
   componentDidMount() {
-    const {sendCommand, rotate} = this.props;
+    const {onMove, onRotate} = this.props;
     document.addEventListener('keypress', (event) => {
       const char = event.key;
 
       switch (char) {
       case 's':
-        sendCommand(DOWN);
+        onMove(DOWN);
         break;
       case 'q':
-        sendCommand(LEFT);
+        onMove(LEFT);
         break;
       case 'd':
-        sendCommand(RIGHT);
+        onMove(RIGHT);
         break;
       case 'a':
-        rotate(ROTATE_LEFT);
+        onRotate(ROTATE_LEFT);
         break;
       case 'e':
-        rotate(ROTATE_RIGHT);
+        onRotate(ROTATE_RIGHT);
         break;
       }
     });
