@@ -150,6 +150,11 @@ class Game extends Component {
       if (this.state.board !== prevState.board) {
         this.injectNewPiece();
       }
+
+      const {score, level} = this.state;
+      if (score >= level * 100) {
+        this.setState({level: level + 1});
+      }
     }
 
     handleSendCommand = (direction) => {
@@ -171,13 +176,13 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId, gameOver, nextPiece, lines, score, effects} = this.state;
+      const {currentBoard, intervalId, gameOver, nextPiece, lines, score, level, effects} = this.state;
       return (<div className="container">
         <div className="main-screen">
           <div className="game-screen">
-            <Screen board={currentBoard} effects={effects}/>
+            <Screen board={currentBoard} effects={effects} />
           </div>
-          <Info nextPiece={nextPiece} lines={lines} score={score}/>
+          <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
         </div>
         <Controller onMove ={this.handleSendCommand}
           onRotate={this.handleRotate}

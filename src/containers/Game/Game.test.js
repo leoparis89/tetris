@@ -298,3 +298,33 @@ describe('Move piece', () => {
     expect(true).toBe(true);
   });
 });
+
+describe('componentDidUpdate', () => {
+  test('a new piece should be injected when board changes', () => {
+    const wrapper = shallow(<Game />);
+    const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
+
+    wrapper.instance().setState({board: ['new']});
+    wrapper.instance().componentDidUpdate({}, {board: ['olc']});
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  test('level should be updated when score goes over threshold', () => {
+    const wrapper = shallow(<Game />);
+    wrapper.instance().setState({score: 101, level: 1});
+    wrapper.instance().componentDidUpdate({}, {score: 99});
+
+    expect(wrapper.instance().state.level).toEqual(2);
+
+    wrapper.instance().setState({score: 150});
+    wrapper.instance().componentDidUpdate({}, {score: 101});
+
+    expect(wrapper.instance().state.level).toEqual(2);
+
+    wrapper.instance().setState({score: 200});
+    wrapper.instance().componentDidUpdate({}, {score: 150});
+
+    expect(wrapper.instance().state.level).toEqual(3);
+  });
+});
