@@ -29,7 +29,6 @@ class Game extends Component {
       const {nextPiece} = this.state;
       if (!nextPiece) return;
       this.injectPiece(nextPiece);
-      this.setState({nextPiece: getRandomPiece()});
     };
 
     /*
@@ -46,7 +45,9 @@ class Game extends Component {
       if (result === BLOCKED) {
         this.gameOver();
       } else {
+        this.startFlow();
         this.setState({
+          nextPiece: getRandomPiece(),
           currentPiece: piece,
           currentPos: targetPos,
           currentBoard: place(board,piece, targetPos.x, targetPos.y)
@@ -68,6 +69,7 @@ class Game extends Component {
     }
 
     startFlow = () => {
+      // debugger;
       if (this.state.intervalId) {
         clearInterval(this.state.intervalId);
       }
@@ -142,13 +144,13 @@ class Game extends Component {
 
       } else {
         this.setState({board: board});
-        this.startFlow();
       }
     }
 
     componentDidUpdate(prevProps, prevState) {
       if (this.state.board !== prevState.board) {
         this.injectNewPiece();
+        // this.startFlow();
       }
 
       const {score, level} = this.state;
@@ -157,12 +159,13 @@ class Game extends Component {
       }
     }
 
-    handleSendCommand = (direction) => {
+    handleMove = (direction) => {
+      if (this.state.gameOver) return;
       this.move(direction);
     }
 
     handleRotate = (direction) => {
-      if (!this.state.intervalId) return;
+      if (this.state.gameOver) return;
       const {board, currentPiece, currentPos: {x, y}} = this.state;
       const rotatedPiece = rotate(currentPiece, direction === ROTATE_LEFT);
       const result = canPlace(board, rotatedPiece, x, y);
@@ -184,13 +187,17 @@ class Game extends Component {
           </div>
           <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
         </div>
-        <Controller onMove ={this.handleSendCommand}
+        <Controller onMove ={this.handleMove}
           onRotate={this.handleRotate}
         />
         <div>
-          <button disabled={intervalId} onClick={this.startNewGame}>START</button>
-          <button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>
-          <button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>
+          <button onClick={this.startNewGame}>New Game</button>
+          {/*{*/}
+          {/*intervalId ? <button disabled={!gameOver} onClick={this.stopFlow}>STOP FLOW</button> :*/}
+          {/*<button disabled={!gameOver} onClick={this.startFlow}>START FLOW</button>*/}
+          {/*}*/}
+          {/*/!*<button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>*!/*/}
+          {/*/!*<button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>*!/*/}
           {gameOver && <h1>Game Over</h1>}
         </div>
       </div>);

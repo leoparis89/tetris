@@ -328,3 +328,14 @@ describe('componentDidUpdate', () => {
     expect(wrapper.instance().state.level).toEqual(3);
   });
 });
+
+describe('Game over', () => {
+  test('it should stop flow', () => {
+    const wrapper = shallow(<Game />);
+    const instance = wrapper.instance();
+    const spy = jest.spyOn(wrapper.instance(), 'stopFlow');
+    instance.gameOver();
+    expect(spy).toHaveBeenCalled();
+    
+  });
+});
