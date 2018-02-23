@@ -53,7 +53,7 @@ describe('reset',() => {
 });
 
 describe('injectPiece', () => {
-  test('inject piece should add piece to currentBoard at start position if possible', () => {
+  test('inject piece should add piece to currentBoard at start position', () => {
     const board = [
       [0,0,0,0,0],
       [0,0,0,0,0],
@@ -85,7 +85,7 @@ describe('injectPiece', () => {
     expect(wrapper.instance().state.currentBoard).toEqual(expected);
   });
 
-  test('inject piece should put piece as current piece', () => {
+  test('inject piece should set piece passed as argurment as current piece', () => {
     const board = [
       [0,0,0,0,0],
       [0,0,0,0,0],
@@ -140,6 +140,17 @@ describe('injectPiece', () => {
     wrapper.instance().injectPiece(newPiece);
     expect(spy).toHaveBeenCalled();
   });
+
+  test('it should generate a new nextPiece', () => {
+    const wrapper = shallow(<Game />);
+
+    wrapper.setState({
+      nextPiece: []
+    });
+
+    wrapper.instance().injectPiece('bar');
+    expect(wrapper.instance().state.nextPiece.length).not.toBe(0);
+  });
 });
 
 describe('Inject next piece', () => {
@@ -173,17 +184,7 @@ describe('Inject next piece', () => {
     expect(spy).toHaveBeenCalledWith(piece);
   });
 
-  test('it should generate a new nextPiece', () => {
-    const wrapper = shallow(<Game />);
 
-    wrapper.setState({
-      nextPiece: []
-    });
-
-
-    wrapper.instance().injectNextPiece();
-    expect(wrapper.instance().state.nextPiece.length).not.toBe(0);
-  });
 });
 
 describe('Handle move', () => {
@@ -318,5 +319,41 @@ describe('Game over', () => {
     const spy = jest.spyOn(wrapper.instance(), 'stopFlow');
     instance.gameOver();
     expect(spy).toHaveBeenCalled();
+  });
+});
+
+
+describe('handle new board', () => {
+  test('it should do the dance if new board has full lines', () => {
+    const instance = shallow(<Game />).instance();
+    instance.setState({nextPiece: 'bar'});
+    jest.useFakeTimers();
+    const boardWithFullLines = [
+      [1,1,1],
+      [2,3,5]
+    ];
+
+    const spyStopFlow = jest.fn();
+    const spyStartFlow = jest.fn();
+    instance.stopFlow = spyStopFlow;
+    instance.startFlow = spyStartFlow;
+
+    instance.handleNewBoard(boardWithFullLines);
+    // flow should stop and effects are set to true
+    expect(spyStopFlow).toHaveBeenCalled();
+    expect(instance.state.effects).toEqual(true);
+    expect(spyStartFlow).not.toHaveBeenCalled();
+
+    // and after 2 seconds we want this to happen
+    jest.runAllTimers();
+    expect(spyStartFlow).toHaveBeenCalled();
+    const {effects, lines, score} = instance.state;
+    const expectedState = {
+      effects: false,
+      lines: 2,
+      score: 20
+    };
+
+    expect({effects, lines, score}).toEqual(expectedState);
   });
 });
