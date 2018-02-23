@@ -172,7 +172,7 @@ describe('Inject new piece', () => {
       nextPiece: null
     });
 
-    wrapper.instance().injectNewPiece();
+    wrapper.instance().injectNextPiece();
     const spy = jest.spyOn(wrapper.instance(), 'injectPiece');
     expect(spy).not.toHaveBeenCalled();
   });
@@ -192,7 +192,7 @@ describe('Inject new piece', () => {
 
     const spy = jest.spyOn(wrapper.instance(), 'injectPiece');
 
-    wrapper.instance().injectNewPiece();
+    wrapper.instance().injectNextPiece();
     expect(spy).toHaveBeenCalledWith(piece);
   });
 
@@ -204,8 +204,27 @@ describe('Inject new piece', () => {
     });
 
 
-    wrapper.instance().injectNewPiece();
+    wrapper.instance().injectNextPiece();
     expect(wrapper.instance().state.nextPiece.length).not.toBe(0);
+  });
+});
+
+describe('Handle move', () => {
+  test('it shouldnt call move if flow isnt ongoin', () => {
+    const instance = shallow(<Game />).instance();
+    const spy = jest.fn();
+    instance.move = spy;
+    instance.handleMove('RIGHT');
+    expect(spy).not.toHaveBeenCalled();
+  });
+
+  test('it should call move if flow is ongoin', () => {
+    const instance = shallow(<Game />).instance();
+    instance.setState({intervalId: 5});
+    const spy = jest.fn();
+    instance.move = spy;
+    instance.handleMove('RIGHT');
+    expect(spy).toHaveBeenCalledWith('RIGHT');
   });
 });
 
@@ -247,13 +266,6 @@ describe('Move piece', () => {
     expect(wrapper.instance().state.currentBoard).toEqual(expected);
   });
 
-  test('move piece should not do anything if piece flow is not ongoing', () => {
-    const wrapper = shallow(<Game />);
-
-    wrapper.instance().move('RIGHT');
-    expect(wrapper.instance().state.currentBoard).toEqual(getGrid());
-  });
-
   test('move piece should print current piece in board if it is blocked moving down', () =>{
     const board = [
       [0,0,0,0,0],
@@ -289,20 +301,13 @@ describe('Move piece', () => {
 
     wrapper.instance().move('DOWN');
     expect(wrapper.instance().state.board).toEqual(expected);
-    // const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
-    // expect(spy).toHaveBeenCalled();
-  });
-
-  test('Move piece ', () => {
-
-    expect(true).toBe(true);
   });
 });
 
 describe('componentDidUpdate', () => {
   test('a new piece should be injected when board changes', () => {
     const wrapper = shallow(<Game />);
-    const spy = jest.spyOn(wrapper.instance(), 'injectNewPiece');
+    const spy = jest.spyOn(wrapper.instance(), 'injectNextPiece');
 
     wrapper.instance().setState({board: ['new']});
     wrapper.instance().componentDidUpdate({}, {board: ['olc']});
@@ -336,6 +341,5 @@ describe('Game over', () => {
     const spy = jest.spyOn(wrapper.instance(), 'stopFlow');
     instance.gameOver();
     expect(spy).toHaveBeenCalled();
-    
   });
 });

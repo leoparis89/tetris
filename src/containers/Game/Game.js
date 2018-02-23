@@ -25,7 +25,7 @@ class Game extends Component {
     };
 
 
-    injectNewPiece = () => {
+    injectNextPiece = () => {
       const {nextPiece} = this.state;
       if (!nextPiece) return;
       this.injectPiece(nextPiece);
@@ -69,7 +69,6 @@ class Game extends Component {
     }
 
     startFlow = () => {
-      // debugger;
       if (this.state.intervalId) {
         clearInterval(this.state.intervalId);
       }
@@ -96,10 +95,10 @@ class Game extends Component {
 
     resetPieces = () => new Promise(res => this.setState({currentPiece:null, nextPiece: getRandomPiece()}, res()));
 
-    move = (direction) => {
-      const {board, currentPiece, currentPos, intervalId} = this.state;
+    move = direction => {
+      const {board, currentPiece, currentPos, gameOver} = this.state;
       // do nothing if no game is in progress
-      if (!intervalId) return;
+      if (gameOver) return;
 
       const targetPos = {...currentPos};
       switch (direction) {
@@ -149,8 +148,7 @@ class Game extends Component {
 
     componentDidUpdate(prevProps, prevState) {
       if (this.state.board !== prevState.board) {
-        this.injectNewPiece();
-        // this.startFlow();
+        this.injectNextPiece();
       }
 
       const {score, level} = this.state;
@@ -159,13 +157,15 @@ class Game extends Component {
       }
     }
 
-    handleMove = (direction) => {
-      if (this.state.gameOver) return;
+    handleMove = direction => {
+      if (!this.state.intervalId) return;
+
       this.move(direction);
     }
 
     handleRotate = (direction) => {
-      if (this.state.gameOver) return;
+      if (!this.state.intervalId) return;
+
       const {board, currentPiece, currentPos: {x, y}} = this.state;
       const rotatedPiece = rotate(currentPiece, direction === ROTATE_LEFT);
       const result = canPlace(board, rotatedPiece, x, y);
@@ -179,7 +179,7 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, intervalId, gameOver, nextPiece, lines, score, level, effects} = this.state;
+      const {currentBoard, gameOver, nextPiece, lines, score, level, effects} = this.state;
       return (<div className="container">
         <div className="main-screen">
           <div className="game-screen">
@@ -192,12 +192,6 @@ class Game extends Component {
         />
         <div>
           <button onClick={this.startNewGame}>New Game</button>
-          {/*{*/}
-          {/*intervalId ? <button disabled={!gameOver} onClick={this.stopFlow}>STOP FLOW</button> :*/}
-          {/*<button disabled={!gameOver} onClick={this.startFlow}>START FLOW</button>*/}
-          {/*}*/}
-          {/*/!*<button disabled={!intervalId} onClick={this.stopFlow}>STOP FLOW</button>*!/*/}
-          {/*/!*<button disabled={intervalId} onClick={this.startFlow}>START FLOW</button>*!/*/}
           {gameOver && <h1>Game Over</h1>}
         </div>
       </div>);
