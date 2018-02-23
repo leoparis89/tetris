@@ -24,10 +24,10 @@ describe('flow',() => {
   });
 });
 
-describe('resets',() => {
-  test('resetBoards should set state correctly', () => {
-    const wrapper = shallow(<Game />);
-    wrapper.instance().setState({
+describe('reset',() => {
+  test('reset should set state correctly', () => {
+    const instance = shallow(<Game />).instance();
+    instance.setState({
       board: [],
       currentBoard: [],
       currentPos: {x: 4, y: 8},
@@ -38,40 +38,17 @@ describe('resets',() => {
       gameOver: true,
     });
 
-    wrapper.instance().resetBoards();
-    const board = getGrid();
-
+    instance.reset();
+    const {board, currentBoard, currentPiece, nextPiece, currentPos} = instance.state;
     const expected = {
-      board: board,
-      currentBoard: board,
-      currentPos: {x: 4, y: 8},
-      currentPiece: [],
-      nextPiece: [],
-      gameSpeed: 40,
-      intervalId: 4,
-      gameOver: true,
-      score: 0,
-      level: 1,
-      lines: 0,
-      effects: false
+      board: getGrid(),
+      currentBoard: getGrid(),
+      currentPiece: null,
+      currentPos: null
     };
 
-    expect(wrapper.instance().state).toEqual(expected);
-  });
-
-  test('reset pieces should set state correctly', () => {
-    const wrapper = shallow(<Game />);
-
-    wrapper.setState({
-      currentPiece: [],
-      nextPiece: []
-    });
-
-    wrapper.instance().resetPieces();
-    const {nextPiece, currentPiece} = wrapper.instance().state;
-
-    expect(currentPiece).toBe(null);
-    expect(nextPiece.length).not.toBe(0);
+    expect({board, currentBoard, currentPiece, currentPos}).toEqual(expected);
+    expect(nextPiece.length).toBeGreaterThan(1);
   });
 });
 
@@ -165,7 +142,7 @@ describe('injectPiece', () => {
   });
 });
 
-describe('Inject new piece', () => {
+describe('Inject next piece', () => {
   test('it should not inject nextPiece if nextPiece is null', () => {
     const wrapper = shallow(<Game />);
     wrapper.setState({

@@ -62,9 +62,7 @@ class Game extends Component {
 
     startNewGame = () => {
       this.setState({gameOver: false});
-      this.resetPieces().then(
-        () => this.resetBoards()
-      );
+      this.reset();
       this.startFlow();
     }
 
@@ -86,14 +84,15 @@ class Game extends Component {
       });
     }
 
-    resetBoards = () => {
+    reset = () => {
       this.setState({
         board: newBoard.slice(),
         currentBoard: newBoard.slice(),
+        currentPiece:null,
+        nextPiece: getRandomPiece(),
+        currentPos: null
       });
     }
-
-    resetPieces = () => new Promise(res => this.setState({currentPiece:null, nextPiece: getRandomPiece()}, res()));
 
     move = direction => {
       const {board, currentPiece, currentPos, gameOver} = this.state;
