@@ -1,0 +1,33 @@
+$wide: 25px;
+$long: 30px;
+
+
+.cross {
+  &__row {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__element {
+    display: block;
+    background: darkgrey;
+  }
+
+  &__core {
+    @extend .cross__element;
+    height: $wide;
+    width: $wide;
+  }
+
+  &__vertical{
+    @extend .cross__element;
+    height: $long;
+    width: $wide;
+  }
+
+  &__horizontal{
+    @extend .cross__element;
+    height: $wide;
+    width: $long;
+  }
+}

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Cross from "./Cross"
 
 export const DOWN = 'DOWN';
 export const LEFT = 'LEFT';
@@ -34,7 +35,7 @@ class Controller extends Component {
   }
 
   render() {
-    return (<div></div>);
+    return (<div><Cross /></div>);
   }
 }
 
