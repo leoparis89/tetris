@@ -15,7 +15,14 @@ $dark-color: darken($base-color, 35%);
 .console {
   background: rgba(213,213,213,0.99);
   padding: 20px;
-  border-radius: 30px;
+  height: 100%;
+  width: 100%;
+
+  @media screen and (min-width: 800px) {
+    border-radius: 30px;
+    height: initial;
+    width: initial;
+  }
 }
 
 .main-screen {

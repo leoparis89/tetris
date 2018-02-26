@@ -1,12 +1,12 @@
 @font-face {
   font-family: pixel;
-  src: url('../../styles/fonts/pixel.ttf');
+  src: url('../../styles/fonts/minecraft.ttf');
 }
 
 .info__container {
   font-family: pixel;
   color: black;
-  width: 200px;
+  width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +14,6 @@
 
 .next-piece__screen__container {
   //border: black 3px solid;
-  width: 140px;
+  width: 100px;
   height: 100px;
 }
