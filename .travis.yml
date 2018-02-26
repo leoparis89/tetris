@@ -1,3 +1,10 @@
 language: node_js
 node_js:
-  - "8"
+- '8'
+deploy:
+  provider: heroku
+  app: tetris-react-app
+  on:
+    repo: leoparis89/tetris
+  api_key:
+    secure: OhWCKRvLvGfctECXaQomiE2AJmdwfgxHauiVxO0IeGcP5oWePZs2Mv/C565ZJ9S8cbfOo+9tql9vkucgx5PTrPTn4cu58bNJOShHJkjg0rQ+H19LIU+chtbyn3LhvtZcLMm25RRe3FaQiNkQxWk+heEKIvbTvRn3ERCj8SLLmn/26mBGUUIA+byN7Fc6ekvacahBgv77Y4ZisUYkW3v9dukLERGnr7xrMlsH9I+x2tCsc21AFedy5vkY2hrpGrAd8ANFQeZ1tiKOB4PIefcBPkR+j0M14Z4SIl52UdAK89Y7kI6bPhmtFdAaY7fztgO7l3rZVH0T6AT2BrULoiFs5ypwBaXrj7oLMPr6ttIpKq5uhk1FirT151aep3jG58WIHHrGTRCr6FetAMZFa0du7tnfeDgkA5Ewvt6bwq1sl0xATh+7gYIuDo5+ucUOY800G03lnna3trOO3S+aGHSiZkGSdyFDXpdBlxYnZItXDIQaxSA4SB6PW9uiv0e+YqLDfjTyOLK9NILFIB+8G9lwygIc2rAGJSGs3QVJJCsUZBtTF6GcI3lVsJnxxNYluvqQkVJv4BMUZKSX3ZmOYSlRx7d99cbSu3FBv/kdLGxpBv1zIpqbHnf54ben9lSZ96qoKwpZB78CbBLDDrLsAO3p0ZqGx03KL0AYUKF3+XHketQ=
