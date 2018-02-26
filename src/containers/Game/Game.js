@@ -188,11 +188,11 @@ class Game extends Component {
             <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
           </div>
           <div>
-            <button onClick={this.startNewGame}>New Game</button>
             {gameOver && <h1>Game Over</h1>}
           </div>
           <Controller onMove ={this.handleMove}
             onRotate={this.handleRotate}
+            onNewGame={this.startNewGame}
           />
         </div>);
     }

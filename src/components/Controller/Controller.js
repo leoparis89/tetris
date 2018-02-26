@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import Cross from "./Cross"
+import './Controller.scss';
+import Cross from './Cross';
+import MenuButtons from './MenuButtons';
 
 export const DOWN = 'DOWN';
 export const LEFT = 'LEFT';
@@ -35,7 +37,11 @@ class Controller extends Component {
   }
 
   render() {
-    return (<div><Cross onMove={this.props.onMove} /></div>);
+    return (
+      <div className="controller__container">
+        <Cross onMove={this.props.onMove} />
+        <MenuButtons onNewGame={this.props.onNewGame}/>
+      </div>);
   }
 }
 

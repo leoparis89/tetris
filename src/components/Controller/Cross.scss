@@ -6,6 +6,7 @@ $long: 30px;
   &__row {
     display: flex;
     justify-content: center;
+    cursor: pointer;
   }
 
   &__element {
