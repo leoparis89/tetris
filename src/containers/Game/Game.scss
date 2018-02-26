@@ -14,10 +14,17 @@ $dark-color: darken($base-color, 35%);
 
 .main-screen {
   border: #95c8ff 4px solid;
+  background: #93be57;
   display: flex;
   align-items: center;
 }
 
 .game-screen {
   border: pink 4px solid
+}
+
+.screen-border {
+  background: darkgrey;
+  padding: 40px;
+  border-radius: 15px 15px 45px 15px;
 }
