@@ -1,0 +1,16 @@
+$size: 30px;
+
+.ab-button {
+  cursor: pointer;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  background: #be0a92;
+  margin: 10px;
+  border-radius: 50%;
+   &--b {
+    @extend .ab-button;
+      position: relative;
+      bottom: 10px;
+   }
+}

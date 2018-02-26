@@ -181,20 +181,21 @@ class Game extends Component {
       const {currentBoard, gameOver, nextPiece, lines, score, level, effects} = this.state;
       return (
         <div className="container">
-          <div className="screen-border">
-            <div className="main-screen">
-              <div className="game-screen">
-                <Screen board={currentBoard} effects={effects} />
+          <div className="console">
+            <div className="screen-border">
+              <div className="main-screen">
+                <div className="game-screen">
+                  <Screen board={currentBoard} effects={effects} />
+                </div>
+                <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
               </div>
-              <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
+              <div></div>
+              {gameOver && <h1>Game Over</h1>}
             </div>
-            <div></div>
-            {gameOver && <h1>Game Over</h1>}
-          </div>
-          <Controller onMove ={this.handleMove}
-            onRotate={this.handleRotate}
-            onNewGame={this.startNewGame}
-          />
+            <Controller onMove ={this.handleMove}
+              onRotate={this.handleRotate}
+              onNewGame={this.startNewGame}
+            /></div>
         </div>);
     }
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './Controller.scss';
 import Cross from './Cross';
 import MenuButtons from './MenuButtons';
+import ABButtons from "./ABButtons"
 
 export const DOWN = 'DOWN';
 export const LEFT = 'LEFT';
@@ -41,6 +42,7 @@ class Controller extends Component {
       <div className="controller__container">
         <Cross onMove={this.props.onMove} />
         <MenuButtons onNewGame={this.props.onNewGame}/>
+        <ABButtons/>
       </div>);
   }
 }

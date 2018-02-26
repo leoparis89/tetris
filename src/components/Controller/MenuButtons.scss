@@ -1,8 +1,10 @@
 .menu-buttons {
   cursor: pointer;
   display: inline-block;
-  transform: rotate(-25deg);
-  background: blue;
+  transform: rotate(-30deg);
+  background: darkgray;
+  border-radius: 5px;
+  margin: 10px;
   width: 30px;
   height: 12px;
 }
