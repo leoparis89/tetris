@@ -11,9 +11,9 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 class Controller extends Component {
   componentDidMount() {
     const {onMove, onRotate} = this.props;
+
     document.addEventListener('keypress', (event) => {
       const char = event.key;
-
       switch (char) {
       case 's':
         onMove(DOWN);
@@ -35,7 +35,7 @@ class Controller extends Component {
   }
 
   render() {
-    return (<div><Cross /></div>);
+    return (<div><Cross onMove={this.props.onMove} /></div>);
   }
 }
 
