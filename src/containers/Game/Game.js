@@ -21,7 +21,8 @@ class Game extends Component {
       level: 1,
       score: 0,
       lines: 0,
-      effects: false
+      effects: false,
+      welcome: true,
     };
 
 
@@ -61,7 +62,7 @@ class Game extends Component {
     }
 
     startNewGame = () => {
-      this.setState({gameOver: false});
+      this.setState({gameOver: false, welcome: false});
       this.reset();
       this.startFlow();
     }
@@ -178,18 +179,18 @@ class Game extends Component {
     }
 
     render() {
-      const {currentBoard, gameOver, nextPiece, lines, score, level, effects} = this.state;
+      const {currentBoard, gameOver, nextPiece, lines, score, level, effects, welcome} = this.state;
       return (
         <div className="container">
           <div className="console">
             <div className="screen-border">
-              <div className="main-screen">
-                <div className="game-screen">
-                  <Screen board={currentBoard} effects={effects} />
-                </div>
-                <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/>
+              <div className="screen">
+                <div style={{display:'flex'}}>
+                  <div className="block-well">
+                    <Screen board={currentBoard} effects={effects} />
+                  </div>
+                  <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/></div>
               </div>
-              <div></div>
               {gameOver && <h1>Game Over</h1>}
             </div>
             <Controller onMove ={this.handleMove}

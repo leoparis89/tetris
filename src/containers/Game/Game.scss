@@ -25,15 +25,15 @@ $dark-color: darken($base-color, 35%);
   }
 }
 
-.main-screen {
-  //border: #95c8ff 4px solid;
+.screen {
   background: #93be57;
   display: flex;
   align-items: center;
   padding: 8px;
+  height: 300px;
 }
 
-.game-screen {
+.block-well {
   //border: pink 4px solid
   border-style: solid;
   border-color: black;
