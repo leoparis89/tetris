@@ -1,15 +1,11 @@
-@font-face {
-  font-family: pixel;
-  //src: url('../../styles/fonts/minecraft.ttf');
-}
-
 .info__container {
-  font-family: pixel;
+  font-family: 'Share Tech Mono';
   color: black;
   width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
 }
 
 .next-piece__screen__container {
