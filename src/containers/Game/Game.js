@@ -4,7 +4,7 @@ import './Game.scss';
 import {getRandomPiece} from './Pieces';
 import {BLOCKED, CAN_PLACE, canPlace, getFullLines, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
-import Info from '../../components/Info/Info';
+import Partie from '../../components/Partie/Partie';
 
 const newBoard = getGrid();
 
@@ -185,13 +185,16 @@ class Game extends Component {
           <div className="console">
             <div className="screen-border">
               <div className="screen">
-                <div style={{display:'flex'}}>
-                  <div className="block-well">
-                    <Screen board={currentBoard} effects={effects} />
-                  </div>
-                  <Info nextPiece={nextPiece} lines={lines} score={score} level={level}/></div>
+                {!gameOver &&
+                  <Partie board={currentBoard}
+                    effects={effects}
+                    nextPiece={nextPiece}
+                    lines={lines}
+                    score={score}
+                    level={level} />
+                }
+                {gameOver && <h1>Game Over</h1>}
               </div>
-              {gameOver && <h1>Game Over</h1>}
             </div>
             <Controller onMove ={this.handleMove}
               onRotate={this.handleRotate}
