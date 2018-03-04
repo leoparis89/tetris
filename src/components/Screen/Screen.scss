@@ -1,10 +1,12 @@
+$block-width: 12px;
+
 .block {
   display: inline-block;
-  height: 13px;
-  width: 13px;
+  height: $block-width;
+  width: $block-width;
   @media screen and (min-width: 800px) {
-    height: 13px;
-    width: 13px;
+    height: $block-width;
+    width: $block-width;
   }
   //border-radius: 3px; ugly
 

@@ -199,7 +199,8 @@ class Game extends Component {
             <Controller onMove ={this.handleMove}
               onRotate={this.handleRotate}
               onNewGame={this.startNewGame}
-            /></div>
+            />
+          </div>
         </div>);
     }
 }

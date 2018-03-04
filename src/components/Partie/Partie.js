@@ -5,7 +5,7 @@ import './Partie.scss';
 
 const Partie = ({board, nextPiece, effects, lines, score, level}) => {
   return (
-    <div style={{display:'flex'}}>
+    <div className="partie">
       <div className="block-well">
         <Screen board={board} effects={effects} />
       </div>

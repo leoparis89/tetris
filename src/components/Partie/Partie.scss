@@ -1,6 +1,11 @@
 .block-well {
-  //border: pink 4px solid
   border-style: solid;
   border-color: black;
-  border-width: 0 10px 10px 10px;
+  border-width: 0 5px 5px 5px;
+}
+
+.partie {
+  display: flex;
+  align-items: center;
+  width: 100%;
 }

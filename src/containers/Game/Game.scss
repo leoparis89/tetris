@@ -14,11 +14,14 @@ $dark-color: darken($base-color, 35%);
 
 .console {
   background: rgba(213,213,213,0.99);
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   width: 100%;
-
-  @media screen and (min-width: 800px) {
+  padding: 10px;
+  @media screen and (min-width: 600px) {
+    padding: 20px;
     border-radius: 30px;
     height: initial;
     width: initial;
@@ -30,13 +33,13 @@ $dark-color: darken($base-color, 35%);
   display: flex;
   align-items: center;
   padding: 8px;
-  height: 300px;
+  height: 260px;
+  width: 260px;
 }
-
-
 
 .screen-border {
   background: darkgrey;
-  padding: 40px;
+  padding: 30px;
   border-radius: 15px 15px 45px 15px;
+  width: max-content;
 }
