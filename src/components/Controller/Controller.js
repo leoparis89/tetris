@@ -13,26 +13,29 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
 class Controller extends Component {
   componentDidMount() {
-    const {onMove, onRotate} = this.props;
+    const {onMove, onRotate, onPause} = this.props;
 
     document.addEventListener('keypress', (event) => {
       const char = event.key;
       switch (char) {
-      case 's':
-        onMove(DOWN);
-        break;
-      case 'q':
-        onMove(LEFT);
-        break;
-      case 'd':
-        onMove(RIGHT);
-        break;
-      case 'a':
-        onRotate(ROTATE_LEFT);
-        break;
-      case 'e':
-        onRotate(ROTATE_RIGHT);
-        break;
+        case 's':
+          onMove(DOWN);
+          break;
+        case 'q':
+          onMove(LEFT);
+          break;
+        case 'd':
+          onMove(RIGHT);
+          break;
+        case 'a':
+          onRotate(ROTATE_LEFT);
+          break;
+        case 'e':
+          onRotate(ROTATE_RIGHT);
+          break;
+        case 'p':
+          onPause();
+          break;
       }
     });
   }
@@ -40,7 +43,7 @@ class Controller extends Component {
   render() {
     return (
       <div className="controller__container">
-        <Cross onMove={this.props.onMove} />
+        <Cross onMove={this.props.onMove}/>
         <MenuButtons onNewGame={this.props.onNewGame}/>
         <ABButtons/>
       </div>);

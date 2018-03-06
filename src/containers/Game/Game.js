@@ -190,6 +190,10 @@ class Game extends Component {
     }
   }
 
+  handleFixDown() {
+
+  }
+
   render() {
     const {currentBoard, gameOver, nextPiece, lines, score, level, effects, welcome} = this.state;
     return (
@@ -212,6 +216,7 @@ class Game extends Component {
                       onRotate={this.handleRotate}
                       onNewGame={this.startNewGame}
                       onPause={this.toggleFlow}
+                      onFixDown={this.handleFixDown}
           />
         </div>
       </div>);
