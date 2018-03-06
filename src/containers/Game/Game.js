@@ -86,6 +86,16 @@ class Game extends Component {
     });
   }
 
+  toggleFlow = () => {
+    const {intervalId} = this.state;
+    // console.log('intervalId', intervalId)
+    if (intervalId) {
+      this.stopFlow();
+    } else {
+      this.startFlow();
+    }
+  };
+
   reset = () => {
     this.setState({
       board: newBoard.slice(),
@@ -201,6 +211,7 @@ class Game extends Component {
           <Controller onMove={this.handleMove}
                       onRotate={this.handleRotate}
                       onNewGame={this.startNewGame}
+                      onPause={this.toggleFlow}
           />
         </div>
       </div>);
