@@ -27,11 +27,6 @@ module.exports = {
     'import', 'react'
   ],
   'rules': {
-    'indent': [
-      'error',
-      2
-    ],
-    
     'linebreak-style': [
       'error',
       'unix'
@@ -57,4 +52,5 @@ module.exports = {
 
     // 'comma-dangle': [ERROR, 'always-multiline'],
   }
-};
+}
+;
