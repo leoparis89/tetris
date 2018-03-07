@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import './Controller.scss';
 import Cross from './Cross';
 import MenuButtons from './MenuButtons';
-import ABButtons from "./ABButtons"
+import ABButtons from './ABButtons';
 
 export const DOWN = 'DOWN';
 export const LEFT = 'LEFT';
@@ -13,7 +14,7 @@ export const ROTATE_RIGHT = 'ROTATE_RIGHT';
 
 class Controller extends Component {
   componentDidMount() {
-    const {onMove, onRotate, onPause} = this.props;
+    const {onMove, onRotate, onPause, onFixDown} = this.props;
 
     document.addEventListener('keypress', (event) => {
       const char = event.key;
@@ -36,6 +37,9 @@ class Controller extends Component {
         case 'p':
           onPause();
           break;
+        case ' ':
+          onFixDown();
+          break;
       }
     });
   }
@@ -49,5 +53,13 @@ class Controller extends Component {
       </div>);
   }
 }
+
+Controller.propTypes = {
+  onMove: PropTypes.func,
+  onRotate: PropTypes.func,
+  onPause: PropTypes.func,
+  onFixDown: PropTypes.func,
+  onNewGame: PropTypes.func
+};
 
 export default Controller;
