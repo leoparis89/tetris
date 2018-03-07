@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Screen from '../../components/Screen/Screen';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
 import {BLOCKED, CAN_PLACE, canPlace, getFullLines, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
@@ -95,6 +94,11 @@ class Game extends Component {
       this.startFlow();
     }
   };
+
+  handlePause = () => {
+    if (this.state.welcome || this.state.gameOver) return;
+    this.toggleFlow();
+  }
 
   reset = () => {
     this.setState({
@@ -215,7 +219,7 @@ class Game extends Component {
           <Controller onMove={this.handleMove}
                       onRotate={this.handleRotate}
                       onNewGame={this.startNewGame}
-                      onPause={this.toggleFlow}
+                      onPause={this.handlePause}
                       onFixDown={this.handleFixDown}
           />
         </div>

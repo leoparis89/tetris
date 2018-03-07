@@ -358,7 +358,7 @@ describe('handle new board', () => {
   });
 });
 
-describe('Pause', () => {
+describe('toggle flow', () => {
   test('it should toggle flow', () => {
     const wrapper = shallow(<Game/>);
     const instance = wrapper.instance();
