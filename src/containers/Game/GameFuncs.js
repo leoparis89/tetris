@@ -15,7 +15,7 @@ export const canPlace = (board, piece, x, y) => {
         let targetX = i + x;
         let targetY = j + y;
 
-        if (targetX < 0 || targetX > (boardWidth -1) ) {
+        if (targetX < 0 || targetX > (boardWidth - 1)) {
           return OFFSCREEN;
         }
 
@@ -79,7 +79,7 @@ export const rotate = (piece, left) => {
     for (let j = 0; j < pieceWidth; ++j) {
 
       if (left) {
-        result[pieceWidth - 1 -i][j] = piece[j][i];
+        result[pieceWidth - 1 - i][j] = piece[j][i];
       } else {
         result[i][pieceWidth - 1 - j] = piece[j][i];
       }
@@ -132,5 +132,15 @@ export const getFullLines = grid => {
     if (fullLine) result.push(i);
   }
 
-  return result.length ? result : null;
+  return result.length ?result : null;
+};
+
+export const getLimitPos = (board, piece, x) => {
+  let y = 0;
+
+  while (true) {
+    const result = canPlace(board, piece, x, y);
+    if (result === BLOCKED) return y - 1;
+    y++;
+  }
 };

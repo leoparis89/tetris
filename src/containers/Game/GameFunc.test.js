@@ -1,12 +1,12 @@
-import {canPlace, getFullLines, place, removeCompletedLines, rotate} from './GameFuncs';
+import {canPlace, getFullLines, getLimitPos, place, removeCompletedLines, rotate} from './GameFuncs';
 
 test('canPlace should return CAN_PLACE if move is possible', () => {
 
   const board = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [2,2,0,0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [2, 2, 0, 0],
   ];
 
   const piece = [
@@ -15,16 +15,16 @@ test('canPlace should return CAN_PLACE if move is possible', () => {
     [0, 0, 1]
   ];
 
-  expect(canPlace(board,piece,0,1)).toEqual('CAN_PLACE');
+  expect(canPlace(board, piece, 0, 1)).toEqual('CAN_PLACE');
 });
 
 test('canPlace should return OFFSCREEN if piece is out of bouds', () => {
 
   const board = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [2,3,1,1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [2, 3, 1, 1],
   ];
 
   const piece = [
@@ -40,10 +40,10 @@ test('canPlace should return OFFSCREEN if piece is out of bouds', () => {
 test('canPlace should return BLOCKED if piece hits bottom', () => {
 
   let board = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,1,1,1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 1, 1, 1],
   ];
 
   const piece = [
@@ -54,10 +54,10 @@ test('canPlace should return BLOCKED if piece hits bottom', () => {
   expect(canPlace(board, piece, 0, 1)).toBe('BLOCKED');
 
   board = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ];
 
   expect(canPlace(board, piece, 0, 2)).toBe('BLOCKED');
@@ -65,67 +65,67 @@ test('canPlace should return BLOCKED if piece hits bottom', () => {
 
 test('removeCompletedLines should clean out completed lines', () => {
   let board = [
-    [0,0,0,0],
-    [1,0,2,0],
-    [1,1,1,1],
-    [2,0,1,2],
+    [0, 0, 0, 0],
+    [1, 0, 2, 0],
+    [1, 1, 1, 1],
+    [2, 0, 1, 2],
   ];
 
 
   let expected = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [1,0,2,0],
-    [2,0,1,2],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1, 0, 2, 0],
+    [2, 0, 1, 2],
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
 
   board = [
-    [0,1,0,0],
-    [1,1,1,1],
-    [1,1,1,1],
-    [2,0,1,2],
+    [0, 1, 0, 0],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [2, 0, 1, 2],
   ];
 
 
   expected = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,1,0,0],
-    [2,0,1,2],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [2, 0, 1, 2],
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
 
   board = [
-    [1,1,1,1],
-    [1,1,1,1],
-    [1,1,1,1],
-    [2,0,1,2],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [1, 1, 1, 1],
+    [2, 0, 1, 2],
   ];
 
   expected = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [2,0,1,2],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [2, 0, 1, 2],
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
 
   board = [
-    [1,1,1,0],
-    [1,1,1,0],
-    [1,1,1,0],
-    [2,1,1,0]
+    [1, 1, 1, 0],
+    [1, 1, 1, 0],
+    [1, 1, 1, 0],
+    [2, 1, 1, 0]
   ];
 
   expected = [
-    [1,1,1,0],
-    [1,1,1,0],
-    [1,1,1,0],
-    [2,1,1,0]
+    [1, 1, 1, 0],
+    [1, 1, 1, 0],
+    [1, 1, 1, 0],
+    [2, 1, 1, 0]
   ];
 
   expect(removeCompletedLines(board)).toEqual(expected);
@@ -133,10 +133,10 @@ test('removeCompletedLines should clean out completed lines', () => {
 
 test('place should return a board with the printed piece', () => {
   let board = [
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
-    [0,0,0,0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ];
 
   let piece = [
@@ -146,18 +146,18 @@ test('place should return a board with the printed piece', () => {
   ];
 
   let expected = [
-    [0,0,0,0],
-    [0,1,1,9],
-    [0,0,0,1],
-    [0,0,0,0],
+    [0, 0, 0, 0],
+    [0, 1, 1, 9],
+    [0, 0, 0, 1],
+    [0, 0, 0, 0],
   ];
 
   expect(place(board, piece, 1, 0)).toEqual(expected);
   board = [
-    [0,0,0,0],
-    [0,0,0,4],
-    [0,0,0,0],
-    [0,0,1,2],
+    [0, 0, 0, 0],
+    [0, 0, 0, 4],
+    [0, 0, 0, 0],
+    [0, 0, 1, 2],
   ];
 
   piece = [
@@ -167,10 +167,10 @@ test('place should return a board with the printed piece', () => {
   ];
 
   expected = [
-    [0,0,0,0],
-    [0,0,0,4],
-    [0,1,1,1],
-    [0,0,1,1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 4],
+    [0, 1, 1, 1],
+    [0, 0, 1, 1],
   ];
 
   expect(place(board, piece, 1, 1)).toEqual(expected);
@@ -231,3 +231,22 @@ test('getFullLines should return the line numbers of the full lines', () => {
   expect(getFullLines(board2)).toEqual(null);
 });
 
+test('getLimitPos should return the right value', () => {
+  let board = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [1, 1, 0, 0],
+  ];
+
+  let piece = [
+    [1, 1, 0],
+    [1, 1, 0],
+    [0, 0, 0],
+  ];
+
+  expect(getLimitPos(board, piece, 0)).toBe(3);
+  expect(getLimitPos(board, piece, 2)).toBe(4);
+});
