@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import './Game.scss';
 import {getRandomPiece} from './Pieces';
-import {BLOCKED, CAN_PLACE, canPlace, getFullLines, getGrid, place, removeCompletedLines, rotate} from './GameFuncs';
+import {
+  BLOCKED, CAN_PLACE, canPlace, getFullLines, getGrid, getLimitPos, place, removeCompletedLines,
+  rotate
+} from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 import Partie from '../../components/Partie/Partie';
 
@@ -195,7 +198,10 @@ class Game extends Component {
   }
 
   handleFixDown() {
-
+    if (!this.state.intervalId) return;
+    const {currentBoard, currentPiece, currentPos: {x}} = this.state;
+    this.setState({currentPiece: {x, y: getLimitPos(currentBoard, currentPiece, x)}},
+      this.move(DOWN));
   }
 
   render() {
