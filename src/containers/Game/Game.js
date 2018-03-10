@@ -109,7 +109,10 @@ class Game extends Component {
       currentBoard: newBoard.slice(),
       currentPiece: null,
       nextPiece: getRandomPiece(),
-      currentPos: null
+      currentPos: null,
+      level: 1,
+      score: 0,
+      lines: 0
     });
   }
 

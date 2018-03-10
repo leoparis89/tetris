@@ -39,15 +39,18 @@ describe('reset', () => {
     });
 
     instance.reset();
-    const {board, currentBoard, currentPiece, nextPiece, currentPos} = instance.state;
+    const {board, currentBoard, currentPiece, nextPiece, currentPos, level, score, lines} = instance.state;
     const expected = {
       board: getGrid(),
       currentBoard: getGrid(),
       currentPiece: null,
-      currentPos: null
+      currentPos: null,
+      level: 1,
+      score: 0,
+      lines: 0
     };
 
-    expect({board, currentBoard, currentPiece, currentPos}).toEqual(expected);
+    expect({board, currentBoard, currentPiece, currentPos, level, score, lines}).toEqual(expected);
     expect(nextPiece.length).toBeGreaterThan(1);
   });
 });
