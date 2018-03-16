@@ -210,7 +210,8 @@ class Game extends Component {
         },
         currentBoard: place(board, currentPiece, x, newY)
       },
-      this.move(DOWN))
+      () => this.move(DOWN)
+    )
     ;
   }
 
