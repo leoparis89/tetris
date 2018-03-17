@@ -13,7 +13,7 @@ $dark-color: darken($base-color, 35%);
 }
 
 .console {
-  background: rgba(213,213,213,0.99);
+  background: rgba(213, 213, 213, 0.99);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,6 +32,7 @@ $dark-color: darken($base-color, 35%);
   background: #93be57;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 8px;
   height: 260px;
   width: 260px;
