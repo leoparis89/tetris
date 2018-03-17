@@ -230,7 +230,7 @@ class Game extends Component {
                       score={score}
                       level={level}/>
               }
-              {gameOver && <h1>Game Over</h1>}
+              {gameOver && <h1 style={{fontFamily: 'Share Tech Mono'}}>Game Over</h1>}
             </div>
           </div>
           <Controller onMove={this.handleMove}
