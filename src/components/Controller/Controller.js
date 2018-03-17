@@ -48,7 +48,7 @@ class Controller extends Component {
     return (
       <div className="controller__container">
         <Cross onMove={this.props.onMove}/>
-        <MenuButtons onNewGame={this.props.onNewGame}/>
+        <MenuButtons onNewGame={this.props.onNewGame} onPause={this.props.onPause}/>
         <ABButtons/>
       </div>);
   }
