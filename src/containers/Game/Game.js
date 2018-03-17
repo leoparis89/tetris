@@ -222,7 +222,7 @@ class Game extends Component {
         <div className="console">
           <div className="screen-border">
             <div className="screen">
-              {!gameOver &&
+              {!(gameOver || welcome) &&
               <Partie board={currentBoard}
                       effects={effects}
                       nextPiece={nextPiece}
@@ -231,6 +231,7 @@ class Game extends Component {
                       level={level}/>
               }
               {gameOver && <h1 style={{fontFamily: 'Share Tech Mono'}}>Game Over</h1>}
+              {welcome && <h1 style={{fontFamily: 'Share Tech Mono'}}>Press start...</h1>}
             </div>
           </div>
           <Controller onMove={this.handleMove}
