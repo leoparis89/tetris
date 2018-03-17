@@ -135,9 +135,7 @@ export const getFullLines = grid => {
   return result.length ?result : null;
 };
 
-export const getLimitPos = (board, piece, x) => {
-  let y = 0;
-
+export const getLimitPos = (board, piece, x, y) => {
   while (true) {
     const result = canPlace(board, piece, x, y);
     if (result === BLOCKED) return y - 1;

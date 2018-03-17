@@ -247,8 +247,8 @@ test('getLimitPos should return the right value', () => {
     [0, 0, 0],
   ];
 
-  expect(getLimitPos(board, piece, 0)).toBe(3);
-  expect(getLimitPos(board, piece, 2)).toBe(4);
+  expect(getLimitPos(board, piece, 0, 0)).toBe(3);
+  expect(getLimitPos(board, piece, 2, 0)).toBe(4);
 
   board = [
     [0, 0, 0, 0],
@@ -265,7 +265,5 @@ test('getLimitPos should return the right value', () => {
     [0, 0, 0],
   ];
 
-  // expect(getLimitPos(board, piece, 0)).toBe(3);
-  expect(getLimitPos(board, piece, 0)).toBe(4);
-
+  expect(getLimitPos(board, piece, 0, 0)).toBe(4);
 });

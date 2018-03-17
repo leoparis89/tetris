@@ -202,8 +202,8 @@ class Game extends Component {
 
   handleFixDown = () => {
     if (!this.state.intervalId) return;
-    const {board, currentPiece, currentPos: {x}} = this.state;
-    const newY = getLimitPos(board, currentPiece, x);
+    const {board, currentPiece, currentPos: {x, y}} = this.state;
+    const newY = getLimitPos(board, currentPiece, x, y);
     this.setState({
         currentPos: {
           x, y: newY
