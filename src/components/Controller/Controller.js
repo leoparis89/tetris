@@ -49,7 +49,7 @@ class Controller extends Component {
       <div className="controller__container">
         <Cross onMove={this.props.onMove}/>
         <MenuButtons onNewGame={this.props.onNewGame} onPause={this.props.onPause}/>
-        <ABButtons/>
+        <ABButtons onRotate={this.props.onRotate} onFixDown={this.props.onFixDown}/>
       </div>);
   }
 }
