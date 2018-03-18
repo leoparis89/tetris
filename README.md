@@ -1,4 +1,5 @@
 # Tetris :video_game: :video_game: :video_game:
+![travis](https://travis-ci.org/leoparis89/tetris.svg?branch=master)
 
 A Tetris game built with react
 
