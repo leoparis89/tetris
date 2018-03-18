@@ -7,7 +7,7 @@ import {
 } from './GameFuncs';
 import Controller, {DOWN, LEFT, RIGHT, ROTATE_LEFT} from '../../components/Controller/Controller';
 import Partie from '../../components/Partie/Partie';
-import Github from "../../components/Github/Github"
+import Github from '../../components/Github/Github';
 
 const newBoard = getGrid();
 
@@ -182,7 +182,6 @@ class Game extends Component {
 
   handleMove = direction => {
     if (!this.state.intervalId) return;
-
     this.move(direction);
   }
 
